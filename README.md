@@ -25,3 +25,9 @@ https://youtu.be/_mBqvoSJIBU
 
 Curso em Video MYSQL
 https://youtu.be/Ofktsne-utM?list=PLHz_AreHm4dkBs-795Dsgvau_ekxg8g1r
+
+Precisa executar no terminal antes de executar:
+----------------------
+npm i
+npm i react-router-dom
+npm run dev

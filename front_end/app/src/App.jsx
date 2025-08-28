@@ -1,12 +1,15 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import { BrowserRouter } from 'simple-react-routing';
+import React from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import HomePage from './pages/Home';
 
-export default function App() {
-
-  return <BrowserRouter routes={[{
-    path: "",
-    component: <HomePage></HomePage>
-  }]}>
-  </BrowserRouter>
+function App() {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+      </Routes>
+    </BrowserRouter>
+  );
 }
+
+export default App;
