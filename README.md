@@ -2,6 +2,8 @@
 Repositório voltado ao desenvolvimento do projeto (SEM NOME) da máteria de Fábrica de projetos ágeis
 
 Links Úteis FRONT-END:
+----------------------
+Cursos
 https://www.rocketseat.com.br/
 
 Curso Completo
@@ -14,6 +16,7 @@ Projeto
 https://youtu.be/YVEVrigByKY
 
 Links Úteis BACK-END
+--------------------
 Api Pagbank
 https://youtu.be/RWA4cCD8d04
 
