@@ -40,6 +40,11 @@ nav a {
   border-radius: 8px;
   color: rgb(255, 255, 255);
   transition: 0.3s;
+  &:hover{
+    background-color: rgb(85, 0, 204);
+    transition: 0.3s;
+    border: none;
+  }
 }
 
 
