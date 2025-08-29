@@ -8,23 +8,18 @@ export function Menu() {
         <li>
           <img className="logo" src={minhaImagem} alt="Logo" />
         </li>
-
         <li>
           <Link to="/">Home</Link>
         </li>
-
         <li>
-          <Link to="/">Pagamentos</Link>
+          <Link to="/Pagamentos">Pagamentos</Link>
         </li>
-
         <li>
-          <Link to="/">Verificação</Link>
+          <Link to="/Verificacao">Verificação</Link>
         </li>
-
         <li>
           <Link to="/Tecnica">Sobre</Link>
         </li>
-
         <li className="login">
           <Link to="/">Login</Link>
         </li>

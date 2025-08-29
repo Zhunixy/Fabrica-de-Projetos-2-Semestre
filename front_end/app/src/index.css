@@ -128,3 +128,32 @@ nav {
         transition: 0.3s;
     }
 }
+
+.hr{
+  width: 50px;
+  border: 2px solid #5500cc;
+  margin-bottom: 30px;
+}
+
+span{
+    color: #5500cc;
+}
+
+.seta{
+  color: white;
+  font-size: 20px;
+  margin-top: 30px;
+  animation: seta 2s infinite;
+}
+
+@keyframes seta {
+  0%{
+    transform: translateY(0);
+  }
+  50%{
+    transform: translateY(30px);
+  }
+  100%{
+    transform: translateY(0);
+  }
+}
