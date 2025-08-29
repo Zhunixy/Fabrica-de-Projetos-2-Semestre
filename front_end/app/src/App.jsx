@@ -4,6 +4,7 @@ import HomePage from './pages/Home';
 import TecnicaPage from './pages/Tecnica/tecnica';
 import PagamentoPage from './pages/Pagamentos/pagamento';
 import VerificaPage from './pages/Verificacao/verifica';
+import Cadastro from './pages/Cadastro/cadastro';
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
           <Route path='Tecnica' element={<TecnicaPage />} />
           <Route path="/Pagamentos" element={<PagamentoPage />} />
           <Route path="/Verificacao" element={<VerificaPage />} />
+          <Route path="/Cadastro" element={<Cadastro />} />
         </Route>
       </Routes>
     </BrowserRouter>

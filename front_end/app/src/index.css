@@ -25,8 +25,6 @@ nav li {
   transition: 0.3s;
 }
 
-
-
 nav a:active,
 nav a:visited {
   color: inherit;
@@ -40,14 +38,10 @@ nav a {
   padding: 8px 16px;
   cursor: pointer;
   border-radius: 8px;
-    color: rgb(255, 255, 255);
-    transition: 0.3s;
-    &:hover{
-        background-color: rgb(85, 0, 204);
-        transition: 0.3s;
-        border: none;
-    }
+  color: rgb(255, 255, 255);
+  transition: 0.3s;
 }
+
 
 nav {
   width: 100%;
@@ -99,7 +93,6 @@ nav {
   background-color: #09011a;
   text-align: center;
   padding: 16px 0;
-  position: absolute;
     bottom: 0;
   & p {
     color: white;
@@ -146,6 +139,7 @@ span{
   animation: seta 2s infinite;
 }
 
+/* Animação pra seta ficar kikando */
 @keyframes seta {
   0%{
     transform: translateY(0);
@@ -156,4 +150,103 @@ span{
   100%{
     transform: translateY(0);
   }
+}
+
+.main2 {
+  display: flex;
+  height: 91.2vh;       
+  width: 100%;     
+}
+
+.form-container {
+  flex: 1;            
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;     
+  padding: 2rem;
+  background-color: #160735; 
+  overflow: hidden;
+}
+
+.img {
+  flex: 1;            
+  height: 100%;
+  width: 100%;
+  object-fit: cover; 
+}
+
+/* Parte da responsividade do login */
+@media (max-width: 768px) {
+  .main2 {
+    flex-direction: column;
+  }
+
+  .img {
+    width: 100%;
+    height: auto;
+  }
+}
+
+.form-container h1 {
+  font-size: 36px;
+  margin-bottom: 20px;
+  color: #ffffff; 
+}
+
+.form-container form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+  max-width: 400px;
+}
+
+.form-container input {
+  width: 100%;
+  padding: 12px 16px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+  outline: none;
+  transition: 0.3s;
+}
+
+/* isso daqui ao clicar no input faz animaçãozinha */
+.form-container input:focus {
+  border-color: #5500cc;
+  box-shadow: 0 0 8px rgba(85, 0, 204, 0.4);
+}
+
+.form-container button {
+  width: 100%;
+  height: 3rem;
+  background-color: #370468;
+  border: none;
+  border-radius: 8px;
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.form-container button:hover {
+  background-color: #5500cc;
+}
+
+.form-container p {
+  margin-top: 12px;
+  font-size: 14px;
+  color: #ffffff;
+}
+
+.form-container a {
+  color: #5500cc;
+  font-weight: 500;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.form-container a:hover {
+  text-decoration: underline;
 }
