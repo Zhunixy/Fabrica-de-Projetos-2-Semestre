@@ -21,20 +21,20 @@ export function Menu() {
           <Link to="/Tecnica">Sobre</Link>
         </li>
         <li className="login">
-          <Link to="/Cadastro">Login</Link>
+          <Link className="ex"  to="/Cadastro">Login</Link>
         </li>
       </ul>
     </nav>
   );
 }
 
-// export function Footer() {
-//   return (
-//     <footer className="footer">
-//       <p>{new Date().getFullYear()} - Todos os direitos reservados &copy;</p>
-//     </footer>
-//   );
-// }
+export function Footer() {
+  return (
+    <footer className="footer">
+      <p>{new Date().getFullYear()} - Todos os direitos reservados &copy;</p>
+    </footer>
+  );
+}
 
 export function Layout() {
   return (
@@ -45,6 +45,7 @@ export function Layout() {
       <main>
         <Outlet />
       </main>
+      <Footer/>
     </>
   );
 }

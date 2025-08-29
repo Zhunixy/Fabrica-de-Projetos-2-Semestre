@@ -30,7 +30,7 @@ nav a:visited {
   color: inherit;
 }
 
-nav a {
+nav a:not(.ex)  {
   text-decoration: none;
   font-weight: 500;
   font-size: 16px;
@@ -57,6 +57,7 @@ nav {
 .login{
     margin-left: auto;
     margin-right: 20px;
+    text-decoration: none;
     padding: 8px 16px;
     background-color: #160735;
     border: none;
@@ -70,6 +71,9 @@ nav {
         transition: 0.3s;
         border: none;
     }
+}
+.ex {
+  text-decoration: none;
 }
 
 .main {
