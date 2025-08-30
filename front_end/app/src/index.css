@@ -1,14 +1,14 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: "Poppins", sans-serif;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
 }
 
-body{
-      background-color: #08050e;
+body {
+  background-color: #08050e;
 }
 
 nav ul {
@@ -30,7 +30,7 @@ nav a:visited {
   color: inherit;
 }
 
-nav a:not(.ex)  {
+nav a:not(.ex) {
   text-decoration: none;
   font-weight: 500;
   font-size: 16px;
@@ -40,13 +40,17 @@ nav a:not(.ex)  {
   border-radius: 8px;
   color: rgb(255, 255, 255);
   transition: 0.3s;
-  &:hover{
+  &:hover {
     background-color: rgb(85, 0, 204);
     transition: 0.3s;
     border: none;
   }
 }
 
+nav a:not(.ex):hover .icon {
+  color: white; /* Mudar a cor do ícone no hover */
+  transition: all 0.3s;
+}
 
 nav {
   width: 100%;
@@ -54,23 +58,29 @@ nav {
   height: fit-content;
 }
 
-.login{
-    margin-left: auto;
-    margin-right: 20px;
-    text-decoration: none;
-    padding: 8px 16px;
-    background-color: #160735;
-    border: none;
-    border-radius: 8px;
-    color: rgb(255, 255, 255);
-    font-size: 16px;
-    cursor: pointer;
+.icon {
+  margin-right: 8px;
+  color: #5500cc;
+  transition: all 0.3s;
+}
+
+.login {
+  margin-left: auto;
+  margin-right: 20px;
+  text-decoration: none;
+  padding: 8px 16px;
+  background-color: #160735;
+  border: none;
+  border-radius: 8px;
+  color: rgb(255, 255, 255);
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s;
+  &:hover {
+    background-color: rgb(85, 0, 204);
     transition: 0.3s;
-    &:hover{
-        background-color: rgb(85, 0, 204);
-        transition: 0.3s;
-        border: none;
-    }
+    border: none;
+  }
 }
 .ex {
   text-decoration: none;
@@ -86,11 +96,12 @@ nav {
   gap: 16px;
 
   & h1 {
-    font-size: 46px;
+    font-size: 76px;
     color: #ffffff;
   }
 
   & p {
+    margin-top: -25px;
     font-size: 18px;
     color: #666;
     max-width: 600px;
@@ -102,7 +113,8 @@ nav {
   background-color: #09011a;
   text-align: center;
   padding: 16px 0;
-    bottom: 0;
+  position: absolute;
+  bottom: 0;
   & p {
     color: white;
     font-size: 14px;
@@ -112,36 +124,36 @@ nav {
 .logo {
   width: 80px;
   padding: 10px;
-
 }
 
-.btn{
-    width: 20rem;
-    height: 3rem;
-    background-color: #160735;
-    border: none;
-    border-radius: 8px;
-    color: rgb(255, 255, 255);
-    font-size: 16px;
-    cursor: pointer;
+.btn {
+  width: 20rem;
+  height: 3rem;
+  background-color: #5500cc;
+  border: none;
+  border-radius: 8px;
+  color: rgb(255, 255, 255);
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s;
+  &:hover {
+    background-color: rgb(74, 18, 153);
     transition: 0.3s;
-    &:hover{
-        background-color: rgb(85, 0, 204);
-        transition: 0.3s;
-    }
+  }
 }
 
-.hr{
+.hr {
   width: 50px;
   border: 2px solid #5500cc;
   margin-bottom: 30px;
+  margin-top: -20px;
 }
 
-span{
-    color: #5500cc;
+span {
+  color: #5500cc;
 }
 
-.seta{
+.seta {
   color: white;
   font-size: 20px;
   margin-top: 30px;
@@ -150,39 +162,39 @@ span{
 
 /* Animação pra seta ficar kikando */
 @keyframes seta {
-  0%{
+  0% {
     transform: translateY(0);
   }
-  50%{
+  50% {
     transform: translateY(30px);
   }
-  100%{
+  100% {
     transform: translateY(0);
   }
 }
 
 .main2 {
   display: flex;
-  height: 91.2vh;       
-  width: 100%;     
+  height: 91.2vh;
+  width: 100%;
 }
 
 .form-container {
-  flex: 1;            
+  flex: 1;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;     
+  align-items: center;
   padding: 2rem;
-  background-color: #160735; 
+  background-color: #0e0422;
   overflow: hidden;
 }
 
 .img {
-  flex: 1;            
+  flex: 1;
   height: 100%;
   width: 100%;
-  object-fit: cover; 
+  object-fit: cover;
 }
 
 /* Parte da responsividade do login */
@@ -200,7 +212,7 @@ span{
 .form-container h1 {
   font-size: 36px;
   margin-bottom: 20px;
-  color: #ffffff; 
+  color: #ffffff;
 }
 
 .form-container form {
@@ -215,16 +227,23 @@ span{
   width: 100%;
   padding: 12px 16px;
   border-radius: 8px;
-  border: 1px solid #ccc;
+  border: 1px solid #160735;
   font-size: 16px;
   outline: none;
   transition: 0.3s;
+  background-color: #08050e;
+  color: rgba(255, 255, 255, 0.623);
+}
+
+.form-container input::placeholder {
+  color: rgba(255, 255, 255, 0.623);
 }
 
 /* isso daqui ao clicar no input faz animaçãozinha */
 .form-container input:focus {
   border-color: #5500cc;
   box-shadow: 0 0 8px rgba(85, 0, 204, 0.4);
+  color: white;
 }
 
 .form-container button {

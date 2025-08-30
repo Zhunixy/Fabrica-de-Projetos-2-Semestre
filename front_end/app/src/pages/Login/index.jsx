@@ -1,23 +1,21 @@
 import bg from "../../../assets/bg.jpg";
 import { Link } from "react-router-dom";
 
-export default function Cadastro() {
+export default function Logar() {
   return (
     <div className="main2">
       <div className="form-container">
-        <h1>Cadastro</h1>
+        <h1>Logar</h1>
         <hr className="hr" />
         <form>
-          <input type="text" placeholder="Nome Completo" required />
           <input type="email" placeholder="Email" required />
           <input type="password" placeholder="Senha" required />
-          <input type="password" placeholder="Confirmar Senha" required />
-          <button type="submit">Cadastrar</button>
+          <button type="submit">Logar</button>
         </form>
         <p>
-          Já possui uma conta?{" "}
-          <Link className="ex" to="/Login">
-            Logar
+          Não possuí uma conta?{" "}
+          <Link className="ex" to="/Cadastro">
+            Cadastre-se
           </Link>
         </p>
       </div>

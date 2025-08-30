@@ -5,6 +5,7 @@ import TecnicaPage from './pages/Tecnica';
 import PagamentoPage from './pages/Pagamentos';
 import VerificaPage from './pages/Verificacao';
 import Cadastro from './pages/Cadastro';
+import Logar from './pages/Login';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
           <Route path="Pagamentos" element={<PagamentoPage />} />
           <Route path="Verificacao" element={<VerificaPage />} />
           <Route path="Cadastro" element={<Cadastro />} />
+          <Route path="Login" element ={<Logar/>}/>
         </Route>
       </Routes>
     </BrowserRouter>

@@ -9,19 +9,29 @@ export function Menu() {
           <img className="logo" src={minhaImagem} alt="Logo" />
         </li>
         <li>
-          <Link to="/">Home</Link>
+          <Link to="/">
+            <i className="icon fa-solid fa-house"></i>Home
+          </Link>
         </li>
         <li>
-          <Link to="/Pagamentos">Pagamentos</Link>
+          <Link to="/Pagamentos">
+            <i className="icon fa-solid fa-bag-shopping"></i>Pagamentos
+          </Link>
         </li>
         <li>
-          <Link to="/Verificacao">Verificação</Link>
+          <Link to="/Verificacao">
+            <i className="icon fa-solid fa-calendar-check"></i> Verificação
+          </Link>
         </li>
         <li>
-          <Link to="/Tecnica">Sobre</Link>
+          <Link to="/Tecnica">
+            <i className="icon fa-solid fa-folder"></i>Sobre
+          </Link>
         </li>
         <li className="login">
-          <Link className="ex"  to="/Cadastro">Login</Link>
+          <Link className="ex" to="/Login">
+            Login
+          </Link>
         </li>
       </ul>
     </nav>
