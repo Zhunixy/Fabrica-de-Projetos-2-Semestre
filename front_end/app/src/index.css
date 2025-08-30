@@ -197,6 +197,38 @@ span {
   object-fit: cover;
 }
 
+@media (min-width: 368px) {
+  .img {
+    width: 60% !important;
+    object-fit: cover;
+  }
+}
+
+@media(max-width: 400px) {
+  .img{
+    display: none;
+  }
+
+  .form-container{
+    object-fit: cover;
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .main h1{
+    font-size: 38px;
+  }
+
+  .main p{
+    font-size: 15px;
+  }
+
+  .main .btn{
+    width: 10rem;
+  }
+}
+
 /* Parte da responsividade do login */
 @media (max-width: 768px) {
   .main2 {
