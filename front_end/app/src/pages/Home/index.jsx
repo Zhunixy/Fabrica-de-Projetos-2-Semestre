@@ -1,4 +1,16 @@
+import { useEffect } from "react";
+import { useOutletContext, useNavigate } from "react-router-dom";
+
 export default function HomePage() {
+  const { logado, setLogado } = useOutletContext();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!logado){
+      navigate("/Login");
+    }  
+  }, [logado]);
+
   return (
     <>
       <div className="main">

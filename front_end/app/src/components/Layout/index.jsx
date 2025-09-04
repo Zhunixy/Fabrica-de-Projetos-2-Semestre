@@ -1,8 +1,8 @@
 import { useEffect, useState, useReducer, useMemo } from "react"
-import { Link, Outlet } from "react-router-dom";
+import { Link, Outlet} from "react-router-dom";
 import minhaImagem from "../../../assets/logo2.png";
 
-export function Menu() {
+export function Menu({ logado, setLogado }) {
     const [navOpen, setNavOpen] = useState(false);
     const [width, setWidth] = useState(window.innerWidth);
 
@@ -35,29 +35,24 @@ export function Menu() {
                 <li>
                     <img className={`logo ${width > 768 ? "" : "hidden"}`} src={minhaImagem} alt="Logo" />
                 </li>
-                <li>
+                <li className={logado? "" : "hidden"}>
                     <Link to="/">
                         <i className="icon fa-solid fa-house"></i>Home
                     </Link>
                 </li>
-                <li>
+                <li className={logado? "" : "hidden"}>
                     <Link to="/Pagamentos">
                         <i className="icon fa-solid fa-bag-shopping"></i>Pagamentos
                     </Link>
                 </li>
-                <li>
-                    <Link to="/Verificacao">
-                        <i className="icon fa-solid fa-calendar-check"></i> Verificação
-                    </Link>
-                </li>
-                <li>
+                <li className={logado? "" : "hidden"}>
                     <Link to="/Tecnica">
                         <i className="icon fa-solid fa-folder"></i>Sobre
                     </Link>
                 </li>
-                <li className="login">
-                    <Link className="ex" to="/Login">
-                        Login
+                <li className={`login ${logado ? "" : "hidden"}`}>
+                    <Link className="ex" to="/Login" onClick={() => {logado? setLogado(false) : ""}}>
+                        {logado? "Logout" : "Login"}
                     </Link>
                 </li>
             </ul>
@@ -74,13 +69,15 @@ export function Footer() {
 }
 
 export function Layout() {
+    const [logado, setLogado] = useState(false);
+
     return (
         <>
         <header>
-            <Menu />
+            <Menu logado={logado} setLogado={setLogado} />
         </header>
         <main>
-            <Outlet />
+            <Outlet context={{ logado, setLogado }} />
         </main>
         <Footer/>
         </>
