@@ -6,3 +6,6 @@ npm run dev
 [main.jsx] é  o ponto de entrada da aplicação, estamos importando o React e o ReactDOM para renderizar o componente principal App dentro do elemento HTML com id 'root'. 
 
 index.html > executa o main.jsx, e o main.jsx > executa o App.jsx
+
+***** PARA RODAR NO PC DA UNIMAR UTILIZE ESSE CÓDIGO ABAIXO NO POWERSHELL *****
+Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
