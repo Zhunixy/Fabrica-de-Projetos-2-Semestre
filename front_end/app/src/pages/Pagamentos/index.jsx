@@ -101,8 +101,8 @@ function LinhaBoleto({ boleto }) {
     <tr>
       <td>{boleto.nBoleto}</td>
       <td>{boleto.cpf}</td>
-      <td>{new Date(boleto.emissao).toLocaleString()}</td>
-      <td>{new Date(boleto.vencimento).toLocaleString()}</td>
+      <td>{boleto.emissao}</td>
+      <td>{boleto.vencimento}</td>
       <td>{boleto.valor}</td>
     </tr>
   );
