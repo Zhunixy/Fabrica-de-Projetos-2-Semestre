@@ -4,48 +4,50 @@ import "./index.css";
 export default function PagamentoPage() {
   const [boletos, setBoletos] = useState([
     {
-      nBoleto: "18219",
+      nBoleto: "23323",
       cpf: "121212122",
       emissao: "19/06/2000",
-      vencimento: "19/06/4238952",
-      valor: 800,
+      vencimento: "19/06/2025",
+      valor: 800
     },
     {
       nBoleto: "18219",
       cpf: "121212122",
       emissao: "19/06/2000",
-      vencimento: "19/06/4238952",
-      valor: 800,
+      vencimento: "19/06/2025",
+      valor: 800
     },
     {
-      nBoleto: "18219",
+      nBoleto: "43255",
       cpf: "121212122",
       emissao: "19/06/2000",
-      vencimento: "19/06/4238952",
-      valor: 800,
+      vencimento: "19/06/2025",
+      valor: 800
     },
     {
-      nBoleto: "18219",
+      nBoleto: "43256",
       cpf: "121212122",
       emissao: "19/06/2000",
-      vencimento: "19/06/4238952",
-      valor: 800,
+      vencimento: "19/06/2025",
+      valor: 800
     },
     {
-      nBoleto: "18219",
+      nBoleto: "98766",
       cpf: "121212122",
       emissao: "19/06/2000",
-      vencimento: "19/06/4238952",
-      valor: 800,
+      vencimento: "19/06/2025",
+      valor: 800
     },
     {
-      nBoleto: "18219",
+      nBoleto: "54361",
       cpf: "121212122",
       emissao: "19/06/2000",
-      vencimento: "19/06/4238952",
-      valor: 800,
-    },
+      vencimento: "19/06/2025",
+      valor: 800
+    }
   ]);
+
+  const [search, setSearch] = useState("");
 
   return (
     <>
@@ -56,7 +58,12 @@ export default function PagamentoPage() {
           iste mollitia?
         </p>
         <div className="form">
-          <input type="text" className="search" placeholder="Buscar" />
+          <input type="text" className="search" placeholder="Buscar"
+                value={search}
+                onChange={(e) =>
+                    setSearch(e.target.value)
+                }
+          />
           <button className="btn-search">
             <i class="fa-solid fa-magnifying-glass"></i>
           </button>
@@ -94,8 +101,8 @@ function LinhaBoleto({ boleto }) {
     <tr>
       <td>{boleto.nBoleto}</td>
       <td>{boleto.cpf}</td>
-      <td>{boleto.emissao}</td>
-      <td>{boleto.vencimento}</td>
+      <td>{new Date(boleto.emissao).toLocaleString()}</td>
+      <td>{new Date(boleto.vencimento).toLocaleString()}</td>
       <td>{boleto.valor}</td>
     </tr>
   );
