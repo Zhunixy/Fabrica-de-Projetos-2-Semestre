@@ -168,27 +168,27 @@ nav {
 }
 
 .row {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
 }
 
 .row-end {
-    display: flex;
-    align-items: center;
-    justify-content: end;
-    margin-left: auto;
-    gap: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  margin-left: auto;
+  gap: 8px;
 }
 
 .column {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 .column input {
-    padding: 8px;
+  padding: 8px;
 }
 
 .hr {
@@ -255,22 +255,22 @@ span {
 
 /* Parte da responsividade do login */
 @media (max-width: 768px) {
-  .form-container{
+  .form-container {
     object-fit: cover;
     width: 100% !important;
     position: relative;
     overflow: hidden;
   }
 
-  .main h1{
+  .main h1 {
     font-size: 38px;
   }
 
-  .main p{
+  .main p {
     font-size: 15px;
   }
 
-  .main .btn:not(.row-end){ 
+  .main .btn:not(.row-end) {
     width: 10rem;
   }
 
@@ -362,45 +362,140 @@ span {
 
 /* modal */
 .modal {
-    position: fixed;
-    display: flex;
-    justify-content: space-around;
-    padding: 20rem;
-    width: 100vw;
-    height: 200vh;
-    background-color: rgba(0, 0, 0, 0.60);
+  position: absolute;
+  display: flex;
+  justify-content: space-around;
+  text-align: left;
+  padding: 20rem;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.726);
 }
 
 .modal form {
-    position: fixed;
-    padding: 24px;
-    top: 20%;
-    background-color: #211142;
-    color: white;
-    border: 2px solid #5500cc;
-    height: fit-content;
-    border-radius: 16px;
+  position: fixed;
+  padding: 24px;
+  top: 20%;
+  background-color: #1a181f;
+  color: white;
+  border-radius: 16px;
+  display: inline-block;
+  height: 70vh;
+  overflow-y: auto;
 }
 
 .modal input {
-  width: 50rem;
+  width: 35rem;
   height: 3rem;
   border-radius: 0.5rem;
-  background-color: #160735;
+  background-color: #121016;
   color: white;
   border: none;
   padding-left: 10px;
   font-size: 15px;
-  border: 2px solid #160735;
+  border: 2px solid #303030;
   outline: none;
   cursor: pointer;
-  margin-top: 2rem;
-  margin-bottom: 2rem;
+  margin-bottom: 1rem;
   &::placeholder {
     color: white;
   }
 }
 
-.modal input:focus{
-    border: 2px solid #5500cc;
+.btn-modal {
+  background-color: #5500cc;
+  border: none;
+  border-radius: 8px;
+  color: rgb(255, 255, 255);
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s;
+  height: 2.5rem;
+  width: 2.5rem;
+}
+
+.btn-deletar {
+  background-color: #5500cc;
+  border: none;
+  border-radius: 8px;
+  color: rgb(255, 255, 255);
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s;
+  height: 2.5rem;
+  width: 2.5rem;
+}
+
+.btn-editar {
+  background-color: #5500cc;
+  border: none;
+  border-radius: 8px;
+  color: rgb(255, 255, 255);
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s;
+  height: 2.5rem;
+  width: 2.5rem;
+}
+
+.criar-boleto {
+  position: relative;
+  left: 24rem;
+}
+
+.btn-criar {
+  background-color: #5500cc;
+  border: none;
+  border-radius: 8px;
+  color: rgb(255, 255, 255);
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s;
+  height: 2.7rem;
+  width: 12rem;
+}
+
+.modal form::-webkit-scrollbar {
+  width: 12px;
+}
+
+.modal form::-webkit-scrollbar-track {
+  background: #5500cc;
+  border-radius: 4px;
+}
+
+.modal form::-webkit-scrollbar-thumb {
+  background-color: #471291;
+  border-radius: 20px;
+  border: 3px solid rgba(255, 166, 0, 0);
+  height: 2px;
+}
+
+.visualizar-boleto {
+  margin-right: 10rem !important;
+}
+
+.btn-ver-boleto {
+  background-color: #5500cc;
+  border: none;
+  border-radius: 8px;
+  color: rgb(255, 255, 255);
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s;
+  height: 2.7rem;
+  width: 12rem;
+}
+
+.btn-download-boleto {
+  background-color: #5500cc;
+  border: none;
+  border-radius: 8px;
+  color: rgb(255, 255, 255);
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s;
+  height: 2.7rem;
+  width: 3rem;
+  margin-left: 13px;
 }
