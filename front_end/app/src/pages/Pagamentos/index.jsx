@@ -222,7 +222,7 @@ export default function PagamentoPage() {
 
         {/* paginação ainda inexistente */}
         <div className="pagination">
-          <button
+          <button style={{width:"6rem"}}
             onClick={() => setPaginaAtual((p) => Math.max(p - 1, 1))}
             disabled={paginaAtual === 1}
           >
@@ -231,7 +231,7 @@ export default function PagamentoPage() {
           {[...Array(totalPaginas)].map((_, idx) => {
             const page = idx + 1;
             return (
-              <button
+              <button 
                 key={page}
                 onClick={() => setPaginaAtual(page)}
                 style={{
@@ -244,7 +244,7 @@ export default function PagamentoPage() {
               </button>
             );
           })}
-          <button
+          <button style={{width:"6rem"}}
             onClick={() => setPaginaAtual((p) => Math.min(p + 1, totalPaginas))}
             disabled={paginaAtual === totalPaginas}
           >

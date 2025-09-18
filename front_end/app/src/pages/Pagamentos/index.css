@@ -93,3 +93,39 @@ tbody tr:hover{
     margin-top: 1rem;
 }
 
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin-top: 2rem;
+}
+
+.pagination button {
+  width: 2.7rem;
+  height: 2.7rem;
+  border-radius: 8px;
+  background-color: #160735;
+  color: #fff;
+  font-size: 14px;
+  border: 1px solid #160735;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.pagination button:hover:not(:disabled) {
+  background-color: #5500cc;
+  border-color: #5500cc;
+}
+
+.pagination button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.pagination .active {
+  background-color: #5500cc !important;
+  border-color: #5500cc !important;
+  font-weight: bold;
+  filter: brightness(0.9);
+}
