@@ -15,7 +15,7 @@
   border: 2px solid #160735;
   outline: none;
   cursor: pointer;
-  margin-top: 2rem;
+
   margin-bottom: 2rem;
   &::placeholder {
     color: white;
@@ -27,7 +27,6 @@
 }
 
 .btn-search {
-  margin-top: 2rem;
   color: white;
   background-color: #160735;
   margin-left: 10px;
@@ -46,6 +45,7 @@
 }
 
 .h1-pagamento{
+    margin-top: 3rem;
     font-size: 50px !important;
 }
 
@@ -78,3 +78,18 @@ tbody td{
 tbody tr:hover{
     background-color: #5500cc;
 }
+
+.h1-boletos{
+    margin-bottom: 2rem;
+    font-size: 30px !important;
+}
+
+.p-boletos{
+    margin-bottom: 1rem;
+    font-size: 16px !important;
+}
+
+.btns{
+    margin-top: 1rem;
+}
+
