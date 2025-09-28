@@ -1,6 +1,6 @@
 # 🛒 Sistema de E-commerce em PHP (POO)
 
-## 👥 Integrantes do Grupo
+## Integrantes do Grupo
 - Kauan Matheus de Brito Alves — RA: 2033310  
 - Wlademir Antonio Martins Junior — RA: 2042998
 - Matheus — RA: _______  
@@ -8,7 +8,7 @@
 
 ---
 
-## 🚀 Passo a Passo para Executar o Projeto
+## Passo a Passo para Executar o Projeto
 
 ### 1️⃣ Clonar o repositório
 ```bash
@@ -43,7 +43,7 @@ O projeto roda em um servidor local com **XAMPP**.
 
 ---
 
-## 📌 Funcionamento do Sistema
+## Funcionamento do Sistema
 
 O sistema simula uma **plataforma de e-commerce** entre **Clientes** e **Vendedores**, com:
 
@@ -53,7 +53,7 @@ O sistema simula uma **plataforma de e-commerce** entre **Clientes** e **Vendedo
 
 ---
 
-## 📚 Classes Principais
+## Classes Principais
 
 - **Usuario** → Classe base para Cliente e Vendedor (login/logout)  
 - **Cliente** → Pode adicionar/remover produtos no carrinho e realizar compras  
@@ -63,7 +63,7 @@ O sistema simula uma **plataforma de e-commerce** entre **Clientes** e **Vendedo
 
 ---
 
-## 🔄 Fluxo de Execução
+## Fluxo de Execução
 
 1. O **cliente** realiza login e deposita saldo em sua conta.  
 2. O **vendedor** adiciona produtos ao estoque.  
@@ -76,7 +76,7 @@ O sistema simula uma **plataforma de e-commerce** entre **Clientes** e **Vendedo
 
 ---
 
-## 🛠️ Tecnologias Utilizadas
+## Tecnologias Utilizadas
 
 - **PHP 8+**  
 - **Composer** (autoload de classes — PSR-4)  
@@ -84,7 +84,7 @@ O sistema simula uma **plataforma de e-commerce** entre **Clientes** e **Vendedo
 
 ---
 
-## 💡 Exemplo de Código (Classe Produto)
+## Exemplo de Código (Classe Produto)
 
 ```php
 <?php
@@ -113,4 +113,4 @@ class Produto {
 ```
 ---
 
-## 🖼️ Menu Terminal
+## Menu Terminal
