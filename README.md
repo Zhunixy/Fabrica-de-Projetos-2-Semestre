@@ -1,71 +1,140 @@
-# Sistema de E-commerce em PHP (POO)
+# 🛒 Sistema de E-commerce em PHP (POO)
+
+![PHP](https://img.shields.io/badge/PHP-8%2B-777BB4?logo=php&logoColor=white)  
+![Composer](https://img.shields.io/badge/Composer-Autoload-orange?logo=composer)  
+![License](https://img.shields.io/badge/license-MIT-green)  
 
 ## 👥 Integrantes do Grupo
-- Nome Completo: __________________ (RA: _______)
-- Nome Completo: __________________ (RA: _______)
-- Nome Completo: __________________ (RA: _______)
+- Nome Completo — RA: _______  
+- Nome Completo — RA: _______  
+- Nome Completo — RA: _______  
 
-<hr>
+---
 
 ## 🚀 Passo a Passo para Executar o Projeto
 
-<h2>### 1. Clonar o repositório</h1>
+### 1️⃣ Clonar o repositório
+```bash
 git clone https://github.com/seu-repositorio/projeto-poo-php.git
 cd projeto-poo-php
-<hr>
-<h2>2. Instalar dependências via Composer</h2>
-Certifique-se de que o Composer está instalado.
+```
 
-No diretório do projeto, execute:  
+---
 
+### 2️⃣ Instalar dependências via Composer
+Certifique-se de que o **Composer** está instalado.  
+No diretório do projeto, execute:
+
+```bash
 composer install
-<hr>
-<h2>3. Executar o projeto</h2>
-Utilizamos o xampp para rodar o nosso projeto em um servidor local
+```
 
-Abra o xampp e habilite a opção APACHE
+---
 
-Logo em seguida digite no seu navegador "localhost/diretorio do projeto"
+### 3️⃣ Executar o projeto
+O projeto roda em um servidor local com **XAMPP**.
 
-OBS: O Diretorio precisa estar na pasta C:/xampp/htdocs para rodar
+1. Abra o **XAMPP** e habilite o módulo **Apache**.  
+2. Mova a pasta do projeto para:
+   ```
+   C:/xampp/htdocs
+   ```
+3. No navegador, acesse:
+   ```
+   http://localhost/nome-do-diretorio/index.php
+   ```
 
-E acessar em: http://localhost/index.php
-<hr>
-<h1>📌 Funcionamento do Sistema</h1>
-O sistema simula uma plataforma de e-commerce entre Clientes e Vendedores, com controle de estoque, carrinho e contas bancárias.
-<hr>
-<h2>Classes Principais</h2>
-Usuario: Classe base para Cliente e Vendedor. Possui login/logout.
+---
 
-Cliente: Pode adicionar produtos ao carrinho, remover e realizar compras.
+## 📌 Funcionamento do Sistema
 
-Vendedor: Pode cadastrar produtos no estoque e listar/remover itens.
+O sistema simula uma **plataforma de e-commerce** entre **Clientes** e **Vendedores**, com:
 
-Produto: Representa um jogo com nome, preço, estoque e vendedor responsável.
+- 🛍️ Controle de estoque  
+- 🛒 Carrinho de compras  
+- 💰 Contas bancárias virtuais (com depósito, saque e transferência)  
 
-ContaBancaria / ContaPagamento / ContaCorrente: Estrutura financeira para depósitos, saques e transferências entre cliente e vendedor.
-<hr>
-<h2>Fluxo de Execução</h2>
-O cliente realiza login e deposita saldo em sua conta.
+---
 
-O vendedor adiciona produtos ao estoque.
+## 📚 Classes Principais
 
-O cliente adiciona produtos ao carrinho e lista os itens.
+- **Usuario** → Classe base para Cliente e Vendedor (login/logout)  
+- **Cliente** → Pode adicionar/remover produtos no carrinho e realizar compras  
+- **Vendedor** → Pode cadastrar produtos no estoque e listar/remover itens  
+- **Produto** → Representa um jogo com nome, preço, estoque e vendedor responsável  
+- **ContaBancaria / ContaPagamento / ContaCorrente** → Estrutura financeira para movimentação de valores  
 
-Ao finalizar a compra:
+---
 
-O sistema verifica o estoque disponível.
+## 🔄 Fluxo de Execução
 
-O sistema calcula o valor total.
+1. O **cliente** realiza login e deposita saldo em sua conta.  
+2. O **vendedor** adiciona produtos ao estoque.  
+3. O **cliente** adiciona produtos ao carrinho e lista os itens.  
+4. Ao finalizar a compra:  
+   - O sistema verifica o estoque disponível.  
+   - Calcula o valor total.  
+   - Se houver saldo suficiente, o valor é transferido para o vendedor.  
+   - O estoque é atualizado e o carrinho do cliente é esvaziado.  
 
-Se houver saldo suficiente, o valor é transferido para a conta do vendedor.
+---
 
-O estoque é atualizado e o carrinho do cliente é esvaziado.
+## 🛠️ Tecnologias Utilizadas
 
-<h1>🛠️ Tecnologias Utilizadas</h1>
-PHP 8+
+- **PHP 8+**  
+- **Composer** (autoload de classes — PSR-4)  
+- **Programação Orientada a Objetos (POO)**  
 
-Composer (Autoloading de Classes - PSR-4)
+---
 
-Programação Orientada a Objetos (POO)
+## 📂 Estrutura do Projeto
 
+```
+📦 projeto-poo-php
+ ┣ 📂 src
+ ┃ ┣ 📜 Usuario.php
+ ┃ ┣ 📜 Cliente.php
+ ┃ ┣ 📜 Vendedor.php
+ ┃ ┣ 📜 Produto.php
+ ┃ ┣ 📜 ContaBancaria.php
+ ┃ ┗ 📜 ...
+ ┣ 📂 public
+ ┃ ┗ 📜 index.php
+ ┣ 📜 composer.json
+ ┣ 📜 README.md
+```
+
+---
+
+## 💡 Exemplo de Código (Classe Produto)
+
+```php
+<?php
+
+namespace App;
+
+class Produto {
+    private string $nome;
+    private float $preco;
+    private int $estoque;
+
+    public function __construct(string $nome, float $preco, int $estoque) {
+        $this->nome = $nome;
+        $this->preco = $preco;
+        $this->estoque = $estoque;
+    }
+
+    public function vender(int $quantidade): bool {
+        if ($quantidade <= $this->estoque) {
+            $this->estoque -= $quantidade;
+            return true;
+        }
+        return false;
+    }
+}
+```
+
+---
+
+## 📜 Licença
+Este projeto está sob a licença **MIT** — fique à vontade para usar e modificar.
