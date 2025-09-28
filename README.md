@@ -2,7 +2,7 @@
 
 ## 👥 Integrantes do Grupo
 - Kauan Matheus de Brito Alves — RA: 2033310  
-- Wlademir Antônio — RA: _______  
+- Wlademir Antonio Martins Junior — RA: 2042998
 - Matheus — RA: _______  
 - Marcos — RA: _______  
 
