@@ -12,7 +12,7 @@
 
 ### 1️⃣ Clonar o repositório
 ```bash
-git clone https://github.com/seu-repositorio/projeto-poo-php.git
+git clone https://github.com/Fabrica-de-Projetos-2-Semestre/projeto-poo-php.git
 cd projeto-poo-php
 ```
 
@@ -38,7 +38,7 @@ O projeto roda em um servidor local com **XAMPP**.
    ```
 3. No navegador, acesse:
    ```
-   http://localhost/nome-do-diretorio/index.php
+   http://localhost/PROJETOGUSTAVO/index.php
    ```
 
 ---
