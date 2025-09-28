@@ -1,9 +1,5 @@
 # 🛒 Sistema de E-commerce em PHP (POO)
 
-![PHP](https://img.shields.io/badge/PHP-8%2B-777BB4?logo=php&logoColor=white)  
-![Composer](https://img.shields.io/badge/Composer-Autoload-orange?logo=composer)  
-![License](https://img.shields.io/badge/license-MIT-green)  
-
 ## 👥 Integrantes do Grupo
 - Nome Completo — RA: _______  
 - Nome Completo — RA: _______  
@@ -87,25 +83,6 @@ O sistema simula uma **plataforma de e-commerce** entre **Clientes** e **Vendedo
 
 ---
 
-## 📂 Estrutura do Projeto
-
-```
-📦 projeto-poo-php
- ┣ 📂 src
- ┃ ┣ 📜 Usuario.php
- ┃ ┣ 📜 Cliente.php
- ┃ ┣ 📜 Vendedor.php
- ┃ ┣ 📜 Produto.php
- ┃ ┣ 📜 ContaBancaria.php
- ┃ ┗ 📜 ...
- ┣ 📂 public
- ┃ ┗ 📜 index.php
- ┣ 📜 composer.json
- ┣ 📜 README.md
-```
-
----
-
 ## 💡 Exemplo de Código (Classe Produto)
 
 ```php
@@ -133,8 +110,3 @@ class Produto {
     }
 }
 ```
-
----
-
-## 📜 Licença
-Este projeto está sob a licença **MIT** — fique à vontade para usar e modificar.
