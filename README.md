@@ -1,9 +1,10 @@
 # 🛒 Sistema de E-commerce em PHP (POO)
 
 ## 👥 Integrantes do Grupo
-- Nome Completo — RA: _______  
-- Nome Completo — RA: _______  
-- Nome Completo — RA: _______  
+- Kauan Matheus de Brito Alves — RA: 2033310  
+- Wlademir Antônio — RA: _______  
+- Matheus — RA: _______  
+- Marcos — RA: _______  
 
 ---
 
