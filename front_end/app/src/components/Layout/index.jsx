@@ -44,7 +44,7 @@ export function Menu({ logado, setLogado }) {
           </Link>
         </li>
       </div>
-      <ul className={navOpen ? "" : "hidden"}>
+      <ul className={`menuAnima ${navOpen ? "open" : "closed"}`}>
         <li className={logado ? "" : "hidden"}>
           <Link to="/">
             <i className="icon fa-solid fa-house"></i>Home
