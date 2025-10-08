@@ -12,7 +12,6 @@ body {
 .pagamento-header {
   text-align: center;
   margin: 2rem 0;
- 
 }
 
 .pagamento-header h1 {
@@ -26,7 +25,6 @@ body {
   font-size: 1rem;
   color: #ddd;
   opacity: 0.8;
-  
 }
 
 /* ======================= Formulário de Busca ======================= */
@@ -85,9 +83,6 @@ body {
 }
 
 /* ======================= Tabela ======================= */
-.table-container {
-  overflow-x: auto;
-}
 .table {
   width: 60rem; /* agora igual à largura da barra de busca */
   max-width: 90%; /* mantém responsivo */
@@ -164,10 +159,18 @@ tbody tr:hover {
   margin: 0;
 }
 
-.table-card.pago p { color: #00c49f; }
-.table-card.pendente p { color: #ffbb28; }
-.table-card.vencido p { color: #ff4444; }
-.table-card.enviados p { color: #8899ff; }
+.table-card.pago p {
+  color: #00c49f;
+}
+.table-card.pendente p {
+  color: #ffbb28;
+}
+.table-card.vencido p {
+  color: #ff4444;
+}
+.table-card.enviados p {
+  color: #8899ff;
+}
 
 /* ======================= Botão Novo Boleto ======================= */
 .criar-boleto {
