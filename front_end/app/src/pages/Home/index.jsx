@@ -1,6 +1,13 @@
 import { useEffect } from "react";
 import { useOutletContext, useNavigate } from "react-router-dom";
-import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer, Legend } from "recharts";
+import {
+  PieChart,
+  Pie,
+  Cell,
+  Tooltip,
+  ResponsiveContainer,
+  Legend,
+} from "recharts";
 import "./home.css";
 
 export default function HomePage() {
@@ -8,9 +15,9 @@ export default function HomePage() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!logado){
+    if (!logado) {
       navigate("/Login");
-    }  
+    }
   }, [logado]);
 
   const boletos = {
@@ -28,7 +35,7 @@ export default function HomePage() {
 
   const COLORS = ["#00C49F", "#FFBB28", "#FF4444"];
 
-   return (
+  return (
     <>
       <div className="main-main">
         <h1>
