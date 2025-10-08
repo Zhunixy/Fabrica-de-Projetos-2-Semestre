@@ -1,131 +1,370 @@
-.form{
-    display: flex;
-    text-align: center;
+/* ======================= Layout Geral ======================= */
+body {
+  background: radial-gradient(circle at top left, #0d031f 0%, #0a0114 100%);
+  color: #fff;
+  font-family: "Poppins", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  margin: 0;
+  padding: 0;
+}
+
+/* ======================= Header ======================= */
+.pagamento-header {
+  text-align: center;
+  margin: 2rem 0;
+ 
+}
+
+.pagamento-header h1 {
+  font-size: 2rem;
+  font-weight: 600;
+  color: #fff;
+  text-shadow: 0 2px 15px rgba(108, 99, 255, 0.2);
+}
+
+.pagamento-header p {
+  font-size: 1rem;
+  color: #ddd;
+  opacity: 0.8;
+  
+}
+
+/* ======================= Formulário de Busca ======================= */
+.form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
 }
 
 .search {
   width: 50rem;
   height: 3rem;
-  border-radius: 0.5rem;
-  background-color: #160735;
-  color: white;
-  border: none;
-  padding-left: 10px;
+  border-radius: 12px;
+  background: rgba(22, 7, 53, 0.45);
+  color: #fff;
+  border: 1px solid rgba(120, 90, 255, 0.2);
+  padding-left: 14px;
   font-size: 15px;
-  border: 2px solid #160735;
   outline: none;
-  cursor: pointer;
-
-  margin-bottom: 2rem;
-  &::placeholder {
-    color: white;
-  }
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
 }
 
-.search:focus{
-    border: 2px solid #5500cc;
+.search::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.search:focus {
+  border: 1px solid #6c63ff;
+  background: rgba(22, 7, 53, 0.6);
+  box-shadow: 0 0 15px rgba(108, 99, 255, 0.4);
 }
 
 .btn-search {
-  color: white;
-  background-color: #160735;
-  margin-left: 10px;
-  padding: 2px;
   width: 50px;
   height: 48px;
-  border-radius: 0.5rem;
+  border-radius: 12px;
   border: none;
+  background: rgba(22, 7, 53, 0.5);
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+}
+
+.btn-search:hover {
+  background: linear-gradient(135deg, #6c63ff, #8b78ff);
+  transform: translateY(-2px);
+  cursor: pointer;
+}
+
+/* ======================= Tabela ======================= */
+.table-container {
+  overflow-x: auto;
+}
+.table {
+  width: 60rem; /* agora igual à largura da barra de busca */
+  max-width: 90%; /* mantém responsivo */
+  margin: 0 auto;
+  border-collapse: collapse;
+  text-align: center;
+  background: rgba(33, 17, 66, 0.35);
+  border-radius: 16px;
+  backdrop-filter: blur(20px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+thead th {
+  padding: 14px;
+  background: rgba(109, 58, 182, 0.9);
+  color: #fff;
+  font-weight: 600;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+tbody td {
+  padding: 16px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+tbody tr:hover {
+  background: rgba(108, 99, 255, 0.2);
+  backdrop-filter: blur(12px);
+}
+
+.empty {
+  text-align: center;
+  padding: 1rem;
+  color: #ccc;
+  font-style: italic;
+}
+
+/* ======================= Cards Mobile ======================= */
+.table-cards {
+  display: none;
+  gap: 16px;
+  margin: 2rem auto;
+  width: 90%;
+}
+
+.table-card {
+  background: rgba(33, 17, 66, 0.35);
+  backdrop-filter: blur(15px);
+  border-radius: 16px;
+  padding: 16px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: transform 0.25s ease, background 0.25s ease;
+}
+
+.table-card:hover {
+  background: rgba(108, 99, 255, 0.2);
+  transform: translateY(-3px);
+}
+
+.table-card h4 {
+  font-size: 1rem;
+  font-weight: 500;
+  margin-bottom: 8px;
+  color: #ccc;
+}
+
+.table-card p {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.table-card.pago p { color: #00c49f; }
+.table-card.pendente p { color: #ffbb28; }
+.table-card.vencido p { color: #ff4444; }
+.table-card.enviados p { color: #8899ff; }
+
+/* ======================= Botão Novo Boleto ======================= */
+.criar-boleto {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.btn-criar {
+  padding: 10px 20px;
+  border-radius: 12px;
+  border: none;
+  background: linear-gradient(135deg, #6c63ff, #8b78ff);
+  color: #fff;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-right: 98px;
+}
+
+.btn-criar:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(108, 99, 255, 0.35);
+}
+
+/* ======================= Modal ======================= */
+.modal-form {
+  width: 600px;
+  max-width: 90%;
+  padding: 2rem;
+  border-radius: 20px;
+  background: rgba(33, 17, 66, 0.4);
+  backdrop-filter: blur(20px);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  animation: fadeScale 0.35s ease forwards;
+  margin: 0 auto;
+}
+
+.modal-form h2 {
+  text-align: center;
+  font-size: 1.8rem;
+  color: #fff;
+  text-shadow: 0 3px 15px rgba(255, 255, 255, 0.1);
+}
+
+.input-group label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 500;
+  color: #ddd;
+}
+
+.input-group input {
+  width: 100%;
+  height: 3rem;
+  border-radius: 12px;
+  border: 1px solid rgba(200, 200, 255, 0.2);
+  background: rgba(50, 30, 90, 0.35);
+  color: #fff;
+  padding: 10px 14px;
+  outline: none;
+  font-size: 1rem;
+  backdrop-filter: blur(15px);
   transition: 0.3s;
-  &:hover {
-    background-color: #5500cc;
-    color: white;
-    cursor: pointer;
-    transition: 0.3s;
-  }
 }
 
-.h1-pagamento{
-    margin-top: 3rem;
-    font-size: 50px !important;
+.input-group input:focus {
+  border-color: #6c63ff;
+  background: rgba(50, 30, 90, 0.5);
 }
 
-.h2-search{
-    color: white !important;
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  flex-wrap: wrap;
 }
 
-.table{
-    color: white;
-    background: #211142;
-    width: 60rem;
-    border-radius: 0.5rem;
-    text-align: center;
-    border-collapse: collapse;
+.modal-actions button {
+  padding: 10px 18px;
+  border-radius: 12px;
+  border: none;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
 }
 
-thead td{
-    background-color: #6d3ab6;
+.btn-secondary {
+  background: rgba(100, 120, 255, 0.25);
+  color: #fff;
 }
 
-tbody, td {
-    border-collapse: collapse; 
-    padding: 17px; 
+.btn-secondary:hover {
+  background: linear-gradient(135deg, #6c63ff, #8b78ff);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(108, 99, 255, 0.35);
 }
 
-tbody td{
-    cursor: pointer;
+.btn-danger {
+  background: rgba(255, 80, 80, 0.25);
+  color: #fff;
 }
 
-tbody tr:hover{
-    background-color: #5500cc;
+.btn-danger:hover {
+  background: rgba(255, 80, 80, 0.5);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(255, 80, 80, 0.35);
 }
 
-.h1-boletos{
-    margin-bottom: 2rem;
-    font-size: 30px !important;
+.btn-close {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
 }
 
-.p-boletos{
-    margin-bottom: 1rem;
-    font-size: 16px !important;
+.btn-close:hover {
+  background: rgba(255, 0, 85, 0.4);
+  transform: scale(1.05);
 }
 
-.btns{
-    margin-top: 1rem;
-}
-
+/* ======================= Paginação ======================= */
 .pagination {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
   margin-top: 2rem;
 }
 
 .pagination button {
-  width: 2.7rem;
-  height: 2.7rem;
-  border-radius: 8px;
-  background-color: #160735;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 12px;
+  background: rgba(22, 7, 53, 0.45);
   color: #fff;
   font-size: 14px;
-  border: 1px solid #160735;
+  border: 1px solid rgba(120, 90, 255, 0.25);
+  backdrop-filter: blur(8px);
   cursor: pointer;
-  transition: 0.3s;
+  transition: all 0.25s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
 }
 
 .pagination button:hover:not(:disabled) {
-  background-color: #5500cc;
-  border-color: #5500cc;
+  background: linear-gradient(135deg, #6c63ff, #8b78ff);
+  border-color: #6c63ff;
+  transform: translateY(-2px);
 }
 
 .pagination button:disabled {
-  opacity: 0.5;
+  opacity: 0.4;
   cursor: not-allowed;
 }
 
 .pagination .active {
-  background-color: #5500cc !important;
-  border-color: #5500cc !important;
+  background: linear-gradient(135deg, #6c63ff, #8b78ff) !important;
+  border-color: #6c63ff !important;
   font-weight: bold;
-  filter: brightness(0.9);
+  filter: brightness(0.95);
+}
+
+/* ======================= Animação ======================= */
+@keyframes fadeScale {
+  0% {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* ======================= Responsividade ======================= */
+@media (max-width: 768px) {
+  .search {
+    width: 90%;
+  }
+  .table {
+    display: none;
+  }
+  .table-cards {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+  .modal-form {
+    width: 95%;
+    padding: 1.5rem;
+  }
+  .input-group input {
+    height: 2.5rem;
+  }
+  .pagination button {
+    width: 2.5rem;
+    height: 2.5rem;
+    font-size: 13px;
+  }
 }

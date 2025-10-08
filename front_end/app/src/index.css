@@ -92,6 +92,7 @@ nav {
     border: none;
   }
 }
+
 .ex {
   text-decoration: none;
 }
@@ -101,7 +102,7 @@ nav {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 80vh;
+  height: 100vh;
   text-align: center;
   gap: 16px;
 
@@ -210,7 +211,6 @@ span {
   animation: seta 2s infinite;
 }
 
-/* Animação pra seta ficar kikando */
 @keyframes seta {
   0% {
     transform: translateY(0);
