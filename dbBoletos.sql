@@ -1,7 +1,7 @@
 create database dbBoletos;
 
 use dbBoletos;
-drop database dbBoletos;
+-- drop database dbBoletos;
 
 create table usuario(
 id int auto_increment,
@@ -22,17 +22,17 @@ email varchar(50) not null unique,
 contato varchar(17) not null,
 modificador int,
 primary key(id),
-foreign key(modificacao) references usuario(id)
+foreign key(modificador) references usuario(id)
 );
 
-create table sistema(
+create table servico(
 id int auto_increment,
 nome varchar(45) not null,
 descricao varchar(200) not null,
 preco decimal(4, 2) not null,
 modificador int,
 primary key(id),
-foreign key(modificacao) references usuario(id)
+foreign key(modificador) references usuario(id)
 );
 
 create table boleto(
@@ -43,10 +43,10 @@ vencimento datetime not null,
 valor decimal(4, 2) not null,
 `status` binary(1) not null,
 cliente_id int,
-sistema_id int,
+servico_id int,
 modificador int,
 primary key(id),
 foreign key(cliente_id) references cliente(id),
-foreign key(sistema_id) references sistema(id),
+foreign key(servico_id) references servico(id),
 foreign key(modificador) references usuario(id)
 );
