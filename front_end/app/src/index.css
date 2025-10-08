@@ -14,9 +14,8 @@ body {
 nav ul {
   list-style-type: none;
   display: flex;
+  flex-direction: column;
   gap: 16px;
-  text-align: center;
-  align-items: center;
 }
 
 nav li {
@@ -58,8 +57,11 @@ nav a:not(.ex):hover .icon {
 }
 
 nav {
+  position: fixed;
+  display: flex;
+  top: 0;
+  flex-direction: column;
   width: 100%;
-  background-color: #09011a;
   height: fit-content;
 }
 
