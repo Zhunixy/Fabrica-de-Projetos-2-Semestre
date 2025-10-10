@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route} from 'react-router-dom';
-import { Layout } from './components/Layout';
+import Layout from './components/Layout';
 import HomePage from './pages/Home';
 import TecnicaPage from './pages/Tecnica';
 import PagamentoPage from './pages/Pagamentos';

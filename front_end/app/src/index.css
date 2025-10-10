@@ -12,10 +12,14 @@ body {
 }
 
 nav ul {
-  margin-top: 2rem;
   list-style-type: none;
   display: flex;
   flex-direction: column;
+  background-color: #08050e8f;
+  border-radius: 0 0 20px 0;
+  width: 20%;
+  padding-top: 2rem;
+  padding-bottom: 1rem;
   gap: 36px;
 }
 
@@ -61,10 +65,15 @@ nav {
   position: fixed;
   display: flex;
   top: 0;
+  z-index: 2;
   flex-direction: column;
   width: 100%;
   height: fit-content;
 
+}
+
+nav div {
+  background-color: #08050e8f;
 }
 
 .hidden {
