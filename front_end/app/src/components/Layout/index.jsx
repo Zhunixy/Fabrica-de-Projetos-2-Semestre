@@ -46,7 +46,7 @@ export function Footer() {
   );
 }
 
-export function Layout() {
+export default function Layout() {
   const [logado, setLogado] = useState(false);
 
   return (
