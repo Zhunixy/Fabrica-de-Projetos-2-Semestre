@@ -19,7 +19,7 @@ nav ul {
   border-radius: 0 0 20px 0;
   width: 20%;
   padding-top: 2rem;
-  padding-bottom: 1rem;
+  padding-bottom: 100%;
   gap: 36px;
 }
 
@@ -65,7 +65,6 @@ nav {
   position: fixed;
   display: flex;
   top: 0;
-  z-index: 2;
   flex-direction: column;
   width: 100%;
   height: fit-content;
