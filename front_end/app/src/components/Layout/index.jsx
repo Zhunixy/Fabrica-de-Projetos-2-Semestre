@@ -13,7 +13,7 @@ export function Menu({ logado, setLogado }) {
         <img
           className={"logo"}
           onClick={() => {
-            logado ? setNavOpen(!navOpen) : navigate("/login");
+            pagina === "/Login" || pagina === "/Cadastro" ? "" : (logado ? setNavOpen(!navOpen) : navigate("/login"));
           }}
           src={minhaImagem}
           alt="Logo"
@@ -29,7 +29,7 @@ export function Menu({ logado, setLogado }) {
           </Link>
         </li>
       </div>
-      <ul className={`menuAnima ${navOpen && logado ? "open" : "closed"} ${pagina === "/Login" || pagina === "/Login" ? "hidden" : ""}`}>
+      <ul className={`menuAnima ${navOpen ? "open" : "closed"} ${logado ? "" : "hidden"}`}>
         <li><Link to="/"><i className="icon fa-solid fa-house"></i>Home</Link></li>
         <li><Link to="/Pagamentos"><i className="icon fa-solid fa-bag-shopping"></i>Pagamentos</Link></li>
         <li><Link to="/Tecnica"><i className="icon fa-solid fa-folder"></i>Sobre</Link></li>
