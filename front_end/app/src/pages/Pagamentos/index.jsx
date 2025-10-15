@@ -163,13 +163,10 @@ export default function PagamentoPage() {
           <tbody>
             {boletosAtual.length > 0 ? (
               boletosAtual.map((boleto) => (
-                <tr key={boleto.id} onClick={() => selecionarLinha(boleto)}>
-                  <td>{boleto.nBoleto}</td>
-                  <td>{boleto.cpf}</td>
-                  <td>{boleto.emissao}</td>
-                  <td>{boleto.vencimento}</td>
-                  <td>{boleto.valor.toLocaleString("pt-BR")}</td>
-                </tr>
+                <LinhaBoleto
+                  key={boleto.id}
+                  boleto={boleto}
+                  onClick={() => selecionarLinha(boleto)}></LinhaBoleto>
               ))
             ) : (
               <tr>
@@ -268,4 +265,15 @@ export default function PagamentoPage() {
       </Modal>
     </div>
   );
+}
+
+
+function LinhaBoleto({boleto, onClick}){
+  return (<tr key={boleto.id} onClick={onClick}>
+    <td>{boleto.nBoleto}</td>
+    <td>{boleto.cpf}</td>
+    <td>{boleto.emissao}</td>
+    <td>{boleto.vencimento}</td>
+    <td>{boleto.valor.toLocaleString("pt-BR")}</td>
+  </tr>)
 }
