@@ -52,6 +52,23 @@ export default function HomePage() {
       {/* --- Resumo das Estatísticas --- */}
       <div className="estatisticas-container">
         <h2 className="titulo">Resumo de Boletos</h2>
+        <p>Resumo dos boletos por Mês</p>
+        <div className="filtro-mes">
+          <select name="" id="">
+            <option value="">Janeiro</option>
+            <option value="">Fevereiro</option>
+            <option value="">Março</option>
+            <option value="">Maio</option>
+            <option value="">Abril</option>
+            <option value="">Junho</option>
+            <option value="">Julho</option>
+            <option value="">Agosto</option>
+            <option value="">Setembro</option>
+            <option value="">Outubro</option>
+            <option value="">Novembro</option>
+            <option value="">Dezembro</option>
+          </select>
+        </div>
         <div className="estatisticas">
           <div className="card pago">
             <h3>Pagos</h3>
