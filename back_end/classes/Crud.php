@@ -13,7 +13,7 @@ class Crud
         $this->tabela = $tabela;
     }
 
-    public function create() {
+    public function create() :array {
         try {
             $sql = "select count(id) as achou from $this->tabela where login = '" . $this->atributos[0] . "' or cpf = '" . $this->atributos[3] . "'";
             $sql = DB::prepare($sql);
@@ -51,7 +51,7 @@ class Crud
         }
     }
 
-    public function read()
+    public function read() :string
     {
         $sql = "select * from $this->tabela";
         $sql = DB::prepare($sql);
@@ -60,7 +60,27 @@ class Crud
         return json_encode($sql);
     }
 
-    public function update() {}
+    public function update(int $id) :array {}
 
-    public function delete() {}
+    public function delete(int $id) :array {}
+
+    public function getDados(int $id) :string {
+        if (gettype($id) == 'integer') {
+            $sql = "select * from $this->tabela where id = $id";
+            $sql = DB::prepare($sql);
+            $sql->execute();
+            $sql = $sql->fetch(PDO::FETCH_ASSOC);
+            return json_encode($sql);
+        }
+        else {
+            return 'ID Inválido';
+        }
+    }
+
+    public function retorno(string $type, string $message) :array {
+        return array(
+            'type' => $type,
+            'message' => $message
+        );
+    }
 }

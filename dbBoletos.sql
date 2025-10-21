@@ -6,7 +6,7 @@ use dbBoletos;
 create table usuario(
 id int auto_increment,
 login varchar(24) not null unique,
-senha varchar(16) not null,
+senha varchar(100) not null,
 tipo int not null,
 cpf varchar(14) not null unique,
 nome varchar(128) not null,
@@ -50,3 +50,5 @@ foreign key(cliente_id) references cliente(id),
 foreign key(servico_id) references servico(id),
 foreign key(modificador) references usuario(id)
 );
+
+insert into usuario values (null, "admin", md5("admin"), 0, "00000000000", "Administrador", "99999999999");
