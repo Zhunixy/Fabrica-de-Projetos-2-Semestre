@@ -1,5 +1,6 @@
 import bg from "../../../assets/bg.jpg";
 import { Link, useOutletContext, useNavigate } from "react-router-dom";
+import axios from "axios";
 
 export default function Logar() {
   const { logado, setLogado } = useOutletContext();
@@ -10,18 +11,35 @@ export default function Logar() {
 
     const form = event.target;
     const formData = new FormData(form);
-    
 
     const usuario = {
       email: formData.get("email"),
-      senha: formData.get("senha")
+      senha: formData.get("senha"),
     };
 
-    if (usuario.email == "teste@teste" && usuario.senha == "1234"){
+    const response = await axios.post(
+      "localhost/Gerenciador-de-pagamentos-boleto/back_end/usuario/login.php",
+      usuario,
+      {
+        headers: {
+          "Content-type": "application/json",
+        },
+      }
+    );
+
+    if (response.data.success) {
+      console.log(response.data);
+      console.log(response.data.message);
       setLogado(true);
       navigate("/"); // redireciona para home
+    } else {
+      console.log(response.data.message);
     }
-  }
+    // if (usuario.email == "teste@teste" && usuario.senha == "1234"){
+    //   setLogado(true);
+    //   navigate("/"); // redireciona para home
+    // }
+  };
 
   return (
     <div className="main2">
