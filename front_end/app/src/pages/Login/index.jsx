@@ -1,7 +1,7 @@
 import bg from "../../../assets/bg.jpg";
 import { Link, useOutletContext, useNavigate } from "react-router-dom";
 import axios from "axios";
-import cors from "cors";
+// import cors from "cors";
 
 export default function Logar() {
   const { logado, setLogado } = useOutletContext();
