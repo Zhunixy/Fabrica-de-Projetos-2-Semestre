@@ -1,6 +1,7 @@
 import bg from "../../../assets/bg.jpg";
 import { Link, useOutletContext, useNavigate } from "react-router-dom";
 import axios from "axios";
+import cors from "cors";
 
 export default function Logar() {
   const { logado, setLogado } = useOutletContext();
@@ -13,12 +14,12 @@ export default function Logar() {
     const formData = new FormData(form);
 
     const usuario = {
-      email: formData.get("email"),
+      login: formData.get("email"),
       senha: formData.get("senha"),
     };
 
     const response = await axios.post(
-      "localhost/Gerenciador-de-pagamentos-boleto/back_end/usuario/login.php",
+      "http://localhost:80/Gerenciador-de-pagamentos-boleto/back_end/usuario/login.php",
       usuario,
       {
         headers: {
@@ -33,7 +34,7 @@ export default function Logar() {
       setLogado(true);
       navigate("/"); // redireciona para home
     } else {
-      console.log(response.data.message);
+      console.log(response.data);
     }
     // if (usuario.email == "teste@teste" && usuario.senha == "1234"){
     //   setLogado(true);
@@ -47,7 +48,7 @@ export default function Logar() {
         <h1>Logar</h1>
         <hr className="hr" />
         <form onSubmit={submitForm}>
-          <input type="email" placeholder="Email" name="email" required />
+          <input type="text" placeholder="Email" name="email" required />
           <input type="password" placeholder="Senha" name="senha" required />
           <button type="submit">Logar</button>
         </form>
@@ -63,3 +64,4 @@ export default function Logar() {
     </div>
   );
 }
+
