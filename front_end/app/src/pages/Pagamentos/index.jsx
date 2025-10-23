@@ -1,7 +1,7 @@
 import { useState, useMemo, useEffect } from "react";
 import "./index.css";
 import Modal from "../../components/Modal";
-import axios from "axios";
+import { get } from "../../controller";
 
 const tamPagina = 6;
 
@@ -14,27 +14,18 @@ export default function PagamentoPage() {
 
   // fetch data
   const fetchData = async () => {
-      const response = await axios.get(
-        "http://localhost:80/Gerenciador-de-pagamentos-boleto/back_end/boleto/get.php",
-        {
-          headers: {
-            "Content-type": "application/json",
-          },
-        }
-      );
+    const response = await get("boleto");
 
-      if (response.data.type == "success") {
-        console.log("📦 Dados recebidos:", response.data.data);
-        setBoletos(JSON.parse(response.data.data));
-      }
-  }
+    if (response) {
+      console.log("📦 Dados recebidos:", response);
+      setBoletos(response);
+    }
+  };
 
   //🔍 Filtragem por busca
   const boletosFiltrados = useMemo(() => {
     return boletos.filter(
-      (b) =>
-        b.codigo.includes(search) ||
-        b.valor.toString().includes(search)
+      (b) => b.codigo.includes(search) || b.valor.toString().includes(search)
     );
   }, [search, boletos]);
 
@@ -52,12 +43,12 @@ export default function PagamentoPage() {
 
   useEffect(() => {
     var timeout = setTimeout(() => {
-        fetchData();
+      fetchData();
     }, 500);
 
     return () => {
-        clearTimeout(timeout);
-    }
+      clearTimeout(timeout);
+    };
   }, [search]);
 
   return (
@@ -95,7 +86,8 @@ export default function PagamentoPage() {
                 <LinhaBoleto
                   key={boleto.id}
                   boleto={boleto}
-                  onClick={() => selecionarLinha(boleto)}></LinhaBoleto>
+                  onClick={() => selecionarLinha(boleto)}
+                ></LinhaBoleto>
               ))
             ) : (
               <tr>
@@ -196,12 +188,17 @@ export default function PagamentoPage() {
   );
 }
 
-
-function LinhaBoleto({boleto, onClick}){
-  return (<tr key={boleto.id} onClick={onClick}>
-    <td>{boleto.codigo}</td>
-    <td>{boleto.emissao}</td>
-    <td>{boleto.vencimento}</td>
-    <td>{Number(boleto.valor).toLocaleString("pt-BR", { minimumFractionDigits: 2 })}</td>
-  </tr>)
+function LinhaBoleto({ boleto, onClick }) {
+  return (
+    <tr key={boleto.id} onClick={onClick}>
+      <td>{boleto.codigo}</td>
+      <td>{boleto.emissao}</td>
+      <td>{boleto.vencimento}</td>
+      <td>
+        {Number(boleto.valor).toLocaleString("pt-BR", {
+          minimumFractionDigits: 2,
+        })}
+      </td>
+    </tr>
+  );
 }
