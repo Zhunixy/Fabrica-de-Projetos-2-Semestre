@@ -1,10 +1,12 @@
 import bg from "../../../assets/bg.jpg";
 import { Link, useOutletContext, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { useState, useEffect } from "react";
 // import cors from "cors";
 
 export default function Logar() {
   const { logado, setLogado } = useOutletContext();
+  const [ message, setMessage ] = useState('');
   const navigate = useNavigate();
 
   const submitForm = async (event) => {
@@ -28,23 +30,34 @@ export default function Logar() {
       }
     );
 
-    if (response.data.success) {
-      console.log(response.data);
-      console.log(response.data.message);
+    if (response.data.type == "success") {
+      setMessage(response.data.message);
       setLogado(true);
       navigate("/"); // redireciona para home
+
     } else {
-      console.log(response.data);
+      setMessage(response.data.message);
     }
-    // if (usuario.email == "teste@teste" && usuario.senha == "1234"){
-    //   setLogado(true);
-    //   navigate("/"); // redireciona para home
-    // }
   };
+
+  useEffect(() => {
+      var timeout = setTimeout(() => {
+          setMessage('');
+      }, 5000);
+
+      return () => {
+          clearTimeout(timeout);
+      }
+  }, [message]);
 
   return (
     <div className="main2">
       <div className="form-container">
+        <div className={`message ${message? "open" : "closed"}`}>
+            <div>
+                {message}
+            </div>
+        </div>
         <h1>Logar</h1>
         <hr className="hr" />
         <form onSubmit={submitForm}>
@@ -52,15 +65,10 @@ export default function Logar() {
           <input type="password" placeholder="Senha" name="senha" required />
           <button type="submit">Logar</button>
         </form>
-        <p>
-          Não possuí uma conta?{" "}
-          <Link className="ex" to="/Cadastro">
-            Cadastre-se
-          </Link>
-        </p>
       </div>
 
       <img className="img" src={bg} alt="Background" />
+
     </div>
   );
 }

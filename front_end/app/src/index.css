@@ -169,6 +169,36 @@ nav div {
   pointer-events: none;
 }
 
+.message {
+  position: fixed;
+  align-self: center;
+  text-align: center;
+  top: 10rem;
+  padding: 20px 20px 20px;
+  color: #fff;
+  animation: fadeIn 0.6s ease-out;
+  background: #08050e8f;
+  backdrop-filter: blur(12px);
+  border-radius: 20px;
+  margin: 25px auto 25px;
+  max-width: 60%;
+  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.25);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+  pointer-events: none;
+}
+
+.message.open {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.message.closed {
+  opacity: 0;
+  transform: translateY(-10px);
+  pointer-events: none;
+}
+
 .logo {
   width: 80px;
   padding: 10px;

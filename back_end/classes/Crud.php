@@ -51,13 +51,17 @@ class Crud
         }
     }
 
-    public function read() :string
+    public function read() :array
     {
         $sql = "select * from $this->tabela";
         $sql = DB::prepare($sql);
         $sql->execute();
         $sql = $sql->fetchAll(PDO::FETCH_ASSOC);
-        return json_encode($sql);
+        //return json_encode($sql);
+        return array(
+                'type' => 'success',
+                'data' => json_encode($sql)
+            );
     }
 
     public function update(int $id) :array {
