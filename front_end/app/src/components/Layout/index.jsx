@@ -57,7 +57,6 @@ export default function Layout() {
       <main>
         <Outlet context={{ logado, setLogado }} />
       </main>
-      <Footer />
     </>
   );
 }

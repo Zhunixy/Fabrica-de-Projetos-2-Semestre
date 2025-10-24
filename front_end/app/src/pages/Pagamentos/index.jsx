@@ -1,6 +1,7 @@
 import { useState, useMemo, useEffect } from "react";
 import "./index.css";
 import Modal from "../../components/Modal";
+import axios from "axios";
 import { get } from "../../controller";
 
 const tamPagina = 6;
@@ -14,13 +15,12 @@ export default function PagamentoPage() {
 
   // fetch data
   const fetchData = async () => {
-    const response = await get("boleto");
-
-    if (response) {
-      console.log("📦 Dados recebidos:", response);
-      setBoletos(response);
-    }
-  };
+      const response = await get("boleto");
+      if (response.data.type == "success") {
+        console.log("📦 Dados recebidos:", response);
+        setBoletos(JSON.parse(response.data.data));
+      }
+  }
 
   //🔍 Filtragem por busca
   const boletosFiltrados = useMemo(() => {
