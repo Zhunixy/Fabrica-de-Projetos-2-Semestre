@@ -11,14 +11,6 @@ import {
 import "./home.css";
 
 export default function HomePage() {
-  const { logado, setLogado } = useOutletContext();
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    if (!logado) {
-      navigate("/Login");
-    }
-  }, [logado]);
 
   const boletos = {
     enviados: 100,

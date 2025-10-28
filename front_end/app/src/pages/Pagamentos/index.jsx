@@ -3,10 +3,12 @@ import "./index.css";
 import Modal from "../../components/Modal";
 import axios from "axios";
 import { get } from "../../controller";
+import { useOutletContext} from "react-router-dom";
 
 const tamPagina = 6;
 
 export default function PagamentoPage() {
+  const {logado, setLogado, message, setMessage} = useOutletContext();
   const [boletos, setBoletos] = useState([]);
   const [search, setSearch] = useState("");
   const [selected, setSelected] = useState(null);
@@ -15,11 +17,10 @@ export default function PagamentoPage() {
 
   // fetch data
   const fetchData = async () => {
-      const response = await get("boleto");
-      if (response.data.type == "success") {
-        console.log("📦 Dados recebidos:", response);
-        setBoletos(JSON.parse(response.data.data));
-      }
+    const response = await get("boleto");
+    if (response.data.type == "success") {
+      setBoletos(JSON.parse(response.data.data));
+    }
   }
 
   //🔍 Filtragem por busca

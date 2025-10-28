@@ -5,8 +5,7 @@ import { useState, useEffect } from "react";
 // import cors from "cors";
 
 export default function Logar() {
-  const { logado, setLogado } = useOutletContext();
-  const [ message, setMessage ] = useState('');
+  const { logado, setLogado, message, setMessage } = useOutletContext();
   const navigate = useNavigate();
 
   const submitForm = async (event) => {
@@ -32,7 +31,7 @@ export default function Logar() {
 
     if (response.data.type == "success") {
       setMessage(response.data.message);
-      setLogado(true);
+      setLogado(true); 
       navigate("/"); // redireciona para home
 
     } else {
@@ -40,24 +39,9 @@ export default function Logar() {
     }
   };
 
-  useEffect(() => {
-      var timeout = setTimeout(() => {
-          setMessage('');
-      }, 5000);
-
-      return () => {
-          clearTimeout(timeout);
-      }
-  }, [message]);
-
   return (
     <div className="main2">
       <div className="form-container">
-        <div className={`message ${message? "open" : "closed"}`}>
-            <div>
-                {message}
-            </div>
-        </div>
         <h1>Logar</h1>
         <hr className="hr" />
         <form onSubmit={submitForm}>

@@ -171,17 +171,26 @@ nav div {
 
 .message {
   position: fixed;
-  align-self: center;
-  text-align: center;
+  width: 100%;
   top: 10rem;
-  padding: 20px 20px 20px;
+  z-index: 9999;
+
+  display: flex; /* centraliza conteúdo interno */
+  align-items: center; /* centraliza verticalmente */
+  justify-content: center; /* centraliza horizontalmente */
+
+  flex-direction: column; /* opcional, útil se tiver mais de um elemento interno */
+
+  text-align: center;
+}
+
+.message-box{
+  padding: 20px 30px;
   color: #fff;
   animation: fadeIn 0.6s ease-out;
   background: #08050e8f;
   backdrop-filter: blur(12px);
   border-radius: 20px;
-  margin: 25px auto 25px;
-  max-width: 60%;
   box-shadow: 0 6px 25px rgba(0, 0, 0, 0.25);
   transition: opacity 0.5s ease, transform 0.5s ease;
   pointer-events: none;
