@@ -178,10 +178,9 @@ nav div {
   display: flex; /* centraliza conteúdo interno */
   align-items: center; /* centraliza verticalmente */
   justify-content: center; /* centraliza horizontalmente */
-
   flex-direction: column; /* opcional, útil se tiver mais de um elemento interno */
-
   text-align: center;
+  pointer-events: none;
 }
 
 .message-box{
@@ -193,19 +192,16 @@ nav div {
   border-radius: 20px;
   box-shadow: 0 6px 25px rgba(0, 0, 0, 0.25);
   transition: opacity 0.5s ease, transform 0.5s ease;
-  pointer-events: none;
 }
 
 .message.open {
   opacity: 1;
   transform: translateY(0);
-  pointer-events: auto;
 }
 
 .message.closed {
   opacity: 0;
   transform: translateY(-10px);
-  pointer-events: none;
 }
 
 .logo {

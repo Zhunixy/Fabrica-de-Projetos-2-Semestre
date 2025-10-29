@@ -9,7 +9,12 @@ require_once "../classes/Crud.php";
 $input = json_decode(file_get_contents("php://input"), true);
 
 $tabela = $input['tab'] ?? '';
-$id = $input['id'] ?? '';
+$dados = $input['dados'] ?? '';
 
-$crud = new crud([], $tabela);
-echo json_encode($crud->getDados($id));
+if (is_string($dados)) {
+  $dados = json_decode($dados, true);
+}
+
+
+$crud = new crud($dados, $tabela);
+echo json_encode($crud->post());

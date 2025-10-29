@@ -51,6 +51,41 @@ class Crud
         }
     }
 
+    public function post(): array {
+        try {
+            if (isset($this->atributos['id'])) {
+                unset($this->atributos['id']);
+            }
+
+            $colunas = array_keys($this->atributos);
+            $placeholders = array_map(fn($col) => ":$col", $colunas);
+
+            $sql = "INSERT INTO {$this->tabela} (" . implode(',', $colunas) . ")
+                    VALUES (" . implode(',', $placeholders) . ")";
+
+            $stmt = DB::prepare($sql);
+
+            // associa corretamente cada coluna ao valor
+            foreach ($this->atributos as $coluna => $valor) {
+                $stmt->bindValue(":$coluna", $valor);
+            }
+
+            $stmt->execute();
+
+            return [
+                'type' => 'success',
+                'mensage' => "{$this->tabela} cadastrado com sucesso!"
+            ];
+
+        } catch (PDOException $e) {
+            return [
+                'type' => 'error',
+                'mensage' => "Erro ao cadastrar {$this->tabela}: " . $e->getMessage()
+            ];
+        }
+
+    }
+
     public function read() :array
     {
         $sql = "select * from $this->tabela";
