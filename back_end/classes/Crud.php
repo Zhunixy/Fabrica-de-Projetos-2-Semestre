@@ -23,7 +23,7 @@ class Crud
             if ($sql[0]['achou'] > 0) {
                 return array(
                     'type' => 'error',
-                    'mensage' => "$this->tabela já existe!"
+                    'message' => "$this->tabela já existe!"
                 );
             }
             else {
@@ -40,13 +40,13 @@ class Crud
 
                 return array(
                     'type' => 'success',
-                    'mensage' => "$this->tabela cadastrado com sucesso!"
+                    'message' => "$this->tabela cadastrado com sucesso!"
                 );
             }
         } catch (PDOException $e) {
             return array(
                 'type' => 'error',
-                'mensage' => "Não foi possível cadastrar $this->tabela!"
+                'message' => "Não foi possível cadastrar $this->tabela!"
             );
         }
     }
@@ -74,13 +74,13 @@ class Crud
 
             return [
                 'type' => 'success',
-                'mensage' => "{$this->tabela} cadastrado com sucesso!"
+                'message' => "{$this->tabela} cadastrado com sucesso!"
             ];
 
         } catch (PDOException $e) {
             return [
                 'type' => 'error',
-                'mensage' => "Erro ao cadastrar {$this->tabela}: " . $e->getMessage()
+                'message' => "Erro ao cadastrar {$this->tabela}: " . $e->getMessage()
             ];
         }
 

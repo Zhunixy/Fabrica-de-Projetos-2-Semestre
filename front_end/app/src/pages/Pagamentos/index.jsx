@@ -99,7 +99,6 @@ export default function PagamentoPage() {
   const selecionarLinha = async (divida) => {
     const response = await getDados("boleto", divida.id);
     if (response.data) {
-      console.log(response.data);
       setSelected(JSON.parse(response.data));
       setOpenModal(true);
     }
