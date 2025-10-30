@@ -47,3 +47,17 @@ export async function post(tabela, dados) {
 
   return response;
 }
+
+
+export async function validacao() {
+    const response = await axios.get(
+      "http://localhost:80/Gerenciador-de-pagamentos-boleto/back_end/usuario/validacao.php",
+      {
+        withCredentials: true,
+        headers: {
+          "Content-type": "application/json",
+        },
+      }
+    );
+    return response;
+  }

@@ -2,6 +2,7 @@ import { useEffect, useState, useReducer, useMemo } from "react";
 import { Link, Outlet, useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
 import minhaImagem from "../../../assets/logo2.png";
+import { validacao } from "../../controller";
 
 export function Menu({ logado, setLogado, message, setMessage }) {
   const [navOpen, setNavOpen] = useState(false);
@@ -19,17 +20,28 @@ export function Menu({ logado, setLogado, message, setMessage }) {
       }
     );
 
-    setMessage(response.data.message);
-    setLogado(false);
+    const response2 = await validacao();
+    if (response2.data.type == "error"){
+      setLogado(false);
+      setMessage(response.data.message);
+    }
   }
 
   // retorna para o login se não estiver logado
   useEffect(() => {
-    if (!logado) {
-      navigate("/Login");
-      setNavOpen(false)
-    }
-  }, [logado]);
+    const checar = async () => {
+      const response2 = await validacao();
+      if (response2.data.type == "error"){
+        navigate("/Login");
+        setMessage("É necessario efetuar login");
+        setLogado(false);
+        setNavOpen(false);
+      }else{
+        setLogado(true);
+      }
+    };
+    checar();
+  }, []);
 
   return (
     <nav>
@@ -73,36 +85,6 @@ export function Footer() {
 export default function Layout() {
   const [logado, setLogado] = useState(false);
   const [ message, setMessage ] = useState('');
-
-  /*//checar a sessão, se retorna sucess setLogado(true) se não setLogado(false)(não funciona por enquanto)
-  const fetchData = async () => {
-    const response = await axios.get(
-      "http://localhost:80/Gerenciador-de-pagamentos-boleto/back_end/usuario/validacao.php",
-      {
-        withCredentials: true,
-        headers: {
-          "Content-type": "application/json",
-        },
-      }
-    );
-  
-    setMessage(response.data.message);
-    if (response.data.type == "success") {
-      setLogado(true);
-  
-    } else {
-      setLogado(false);
-    }
-  }
-  
-  // checa se esta logado de 5 em 5 segundos
-  useEffect(() => {
-    const intervalo = setInterval(() => {
-      fetchData();
-    }, 5000);
-  
-    return () => clearInterval(intervalo);
-  }, []);*/
 
   // redefine mensagem por apenas 5 segundos
   useEffect(() => {

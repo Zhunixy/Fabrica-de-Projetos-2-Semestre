@@ -2,6 +2,7 @@ import bg from "../../../assets/bg.jpg";
 import { Link, useOutletContext, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useState, useEffect } from "react";
+import { validacao } from "../../controller";
 // import cors from "cors";
 
 export default function Logar() {
@@ -31,14 +32,28 @@ export default function Logar() {
     );
 
     if (response.data.type == "success") {
-      setMessage(response.data.message);
-      setLogado(true); 
-      navigate("/"); // redireciona para home
-
+      const response2 = await validacao();
+      if (response2.data.type == "success"){
+        setLogado(true);
+        setMessage(response.data.message);
+        navigate("/"); // redireciona para home
+      }
     } else {
       setMessage(response.data.message);
     }
   };
+
+  useEffect(() => {
+    const valida = async ()=>{
+      const response = await validacao();
+      if (response.data.type == "success"){
+        setLogado(true);
+        setMessage("Usuario já logado");
+        navigate("/"); // redireciona para home
+      }
+    }
+    valida();
+  }, []);
 
   return (
     <div className="main2">

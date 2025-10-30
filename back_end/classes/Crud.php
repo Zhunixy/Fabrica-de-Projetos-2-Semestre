@@ -13,78 +13,38 @@ class Crud
         $this->tabela = $tabela;
     }
 
-    public function create() :array {
+    public function create(): array {
         try {
-            $sql = "select count(id) as achou from $this->tabela where login = '" . $this->atributos[0] . "' or cpf = '" . $this->atributos[3] . "'";
-            $sql = DB::prepare($sql);
-            $sql->execute();
-            $sql = $sql->fetchAll(PDO::FETCH_ASSOC);
+            // Pega as colunas da tabela
+            $stmt = DB::prepare("show columns from {$this->tabela}");
+            $stmt->execute();
+            $colunas = $stmt->fetchAll(PDO::FETCH_COLUMN);
 
-            if ($sql[0]['achou'] > 0) {
-                return array(
-                    'type' => 'error',
-                    'message' => "$this->tabela já existe!"
-                );
-            }
-            else {
-                $sql = "insert into $this->tabela values (null";
-        
-                foreach ($this->atributos as $a) {
-                    $sql .= ', ?';
-                }
-        
-                $sql .= ")";
-        
-                $sql = DB::prepare($sql);
-                $sql->execute($this->atributos);
-
-                return array(
-                    'type' => 'success',
-                    'message' => "$this->tabela cadastrado com sucesso!"
-                );
-            }
-        } catch (PDOException $e) {
-            return array(
-                'type' => 'error',
-                'message' => "Não foi possível cadastrar $this->tabela!"
-            );
-        }
-    }
-
-    public function post(): array {
-        try {
-            if (isset($this->atributos['id'])) {
-                unset($this->atributos['id']);
+            if (in_array('id', $colunas)) {
+                $colunas = array_filter($colunas, fn($c) => $c !== 'id');
             }
 
-            $colunas = array_keys($this->atributos);
-            $placeholders = array_map(fn($col) => ":$col", $colunas);
+            $colunasSql = implode(', ', $colunas);
+            $placeholders = implode(', ', array_fill(0, count($this->atributos), '?'));
 
-            $sql = "INSERT INTO {$this->tabela} (" . implode(',', $colunas) . ")
-                    VALUES (" . implode(',', $placeholders) . ")";
+            $sql = "insert into {$this->tabela} ({$colunasSql}) values ({$placeholders})";
 
             $stmt = DB::prepare($sql);
-
-            // associa corretamente cada coluna ao valor
-            foreach ($this->atributos as $coluna => $valor) {
-                $stmt->bindValue(":$coluna", $valor);
-            }
-
-            $stmt->execute();
+            $stmt->execute(array_values($this->atributos));
 
             return [
                 'type' => 'success',
                 'message' => "{$this->tabela} cadastrado com sucesso!"
             ];
-
         } catch (PDOException $e) {
             return [
                 'type' => 'error',
                 'message' => "Erro ao cadastrar {$this->tabela}: " . $e->getMessage()
             ];
         }
-
     }
+
+
 
     public function read() :array
     {

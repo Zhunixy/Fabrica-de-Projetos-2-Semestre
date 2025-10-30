@@ -71,7 +71,6 @@ export default function PagamentoPage() {
     const status = formData.get("status")? 1 : 0
 
     const boleto = {
-      id: null,
       codigo: formData.get("codigo"),
       emissao: formData.get("emissao"),
       vencimento: formData.get("vencimento"),
@@ -250,7 +249,7 @@ export default function PagamentoPage() {
           </div>
           <div className="input-group">
             <label>Valor</label>
-            <input defaultValue={selected?.valor || ""} type="number" name="valor" required step="0.01" min="0" max="9999999"/>
+            <input defaultValue={selected?.valor || ""} type="number" name="valor" required step="0.01" min="0" max="9999999" onWheel={(e) => e.target.blur()} />
           </div>
           <div className="input-group">
             <label>Status</label>

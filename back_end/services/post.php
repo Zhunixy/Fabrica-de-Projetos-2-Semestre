@@ -23,4 +23,4 @@ if (is_string($dados)) {
 
 
 $crud = new crud($dados, $tabela);
-echo json_encode($crud->post());
+echo json_encode($crud->create());
