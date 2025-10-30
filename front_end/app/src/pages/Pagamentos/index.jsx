@@ -93,6 +93,8 @@ export default function PagamentoPage() {
     } else {
       setMessage(response.data.message);
     }
+
+    form.reset();
   };
 
   const selecionarLinha = async (divida) => {
