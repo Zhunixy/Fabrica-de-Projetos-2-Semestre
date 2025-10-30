@@ -23,6 +23,7 @@ export default function Logar() {
       "http://localhost:80/Gerenciador-de-pagamentos-boleto/back_end/usuario/login.php",
       usuario,
       {
+        withCredentials: true,
         headers: {
           "Content-type": "application/json",
         },
