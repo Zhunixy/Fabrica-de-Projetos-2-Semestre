@@ -12,5 +12,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 
 require_once '../classes/Usuario.php';
 
-$usuario = new Usuario([],'');
+$usuario = new Usuario([],'usuario');
+
 echo json_encode($usuario->validacao());
