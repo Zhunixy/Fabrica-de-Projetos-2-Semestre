@@ -1,9 +1,10 @@
 import { useState, useMemo, useEffect } from "react";
-import "./index.css";
+//import "./index.css";
 import Modal from "../../components/Modal";
 import axios from "axios";
 import { get, getDados, post } from "../../controller";
 import { useOutletContext} from "react-router-dom";
+import md5 from "md5";
 
 const tamPagina = 6;
 
@@ -28,7 +29,7 @@ export default function UsuarioPage() {
   //🔍 Filtragem por busca
   const usuariosFiltrados = useMemo(() => {
     return usuarios.filter(
-      (b) => b.codigo.includes(search) || b.valor.toString().includes(search)
+      (b) => b.nome.includes(search) || b.cpf.toString().includes(search)
     );
   }, [search, usuarios]);
 
@@ -44,10 +45,11 @@ export default function UsuarioPage() {
 
     const form = event.target;
     const formData = new FormData(form);
+    const senha = md5(formData.get("senha"))
 
     const usuario = {
       login: formData.get("login"),
-      senha: formData.get("senha"),
+      senha: senha,
       tipo: formData.get("tipo"),
       cpf: formData.get("cpf"),
       nome: formData.get("nome"),
