@@ -3,8 +3,8 @@ import Layout from './components/Layout';
 import HomePage from './pages/Home';
 import TecnicaPage from './pages/Tecnica';
 import PagamentoPage from './pages/Pagamentos';
-import Cadastro from './pages/Cadastro';
 import Logar from './pages/Login';
+import UsuarioPage from './pages/CadastroUsuario';
 
 function App() {
 
@@ -16,8 +16,8 @@ function App() {
           <Route index element={<HomePage />} />
           <Route path='Tecnica' element={<TecnicaPage />} />
           <Route path="Pagamentos" element={<PagamentoPage />} />
-          <Route path="Cadastro" element={<Cadastro />} />
           <Route path="Login" element ={<Logar/>}/>
+          <Route path="Usuarios" element = {<UsuarioPage />}/>
         </Route>
       </Routes>
     </BrowserRouter>
