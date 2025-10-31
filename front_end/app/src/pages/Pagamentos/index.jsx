@@ -2,17 +2,13 @@ import { useState, useMemo, useEffect } from "react";
 import "./index.css";
 import Modal from "../../components/Modal";
 import axios from "axios";
-import { get, getDados, post } from "../../controller";
+import { get, getDados, getId, post } from "../../controller";
 import { useOutletContext} from "react-router-dom";
 
 const tamPagina = 6;
 
 export default function PagamentoPage() {
-  const {logado, setLogado, message, setMessage} = useOutletContext();
-
-  // tanto usuarios quanto modificador são temporarios
-  const [usuarios, setUsuarios] = useState([]);
-  const [modificador, setModificador] = useState(null);
+  const {logado, setLogado, logadoID, setLogadoID, message, setMessage} = useOutletContext();
 
   const [boletos, setBoletos] = useState([]);
   const [clientes, setClientes] = useState([]);
@@ -33,7 +29,7 @@ export default function PagamentoPage() {
     const response = await get("boleto");
     const response2 = await get("cliente");
     const response3 = await get("servico");
-    const response4 = await get("usuario");
+    const response4 = await getId();
     if (response.data.type == "success") {
       setBoletos(JSON.parse(response.data.data));
     }
@@ -43,10 +39,6 @@ export default function PagamentoPage() {
     if (response3.data.type == "success") {
       setServicos(JSON.parse(response3.data.data));
     }
-    if (response4.data.type == "success") {
-      setUsuarios(JSON.parse(response4.data.data));
-    }
-
   }
 
   //🔍 Filtragem por busca
@@ -80,7 +72,7 @@ export default function PagamentoPage() {
       servico_id: formData.get("servico"),
 
       // temporario
-      modificador: formData.get("modificador"),
+      modificador: logadoID,
     };
 
     const response = await post("boleto", boleto);
@@ -93,14 +85,13 @@ export default function PagamentoPage() {
     } else {
       setMessage(response.data.message);
     }
-
-    form.reset();
   };
 
   const selecionarLinha = async (divida) => {
     const response = await getDados("boleto", divida.id);
     if (response.data) {
       setSelected(JSON.parse(response.data));
+      console.log(JSON.parse(response.data));
       setOpenModal(true);
     }
   };
@@ -110,16 +101,10 @@ export default function PagamentoPage() {
       setStatus(selected.status == 1 ? "true" : "");
       setCliente(selected.cliente_id);
       setServico(selected.servico_id);
-
-      // temporario
-      setModificador(selected.modificador);
     }else {
       setStatus("");
       setCliente(null);
       setServico(null);
-
-      // temporario
-      setModificador(null);
     }
   }, [selected]);
 
@@ -276,18 +261,6 @@ export default function PagamentoPage() {
                 {
                   servicos.map(serv =>
                       <option key={serv.id} value={serv.id}>{serv.id} | {serv.descricao}</option>
-                  )
-                }
-              </select>
-          </div>
-          
-          {/* modificador é definido manualmente(é temporario essa parte)*/}
-          <div className="input-group">
-            <label>Modificador</label>
-              <select value={modificador} onChange={(e) => setModificador(e.target.value)} required name="modificador">
-                {
-                  usuarios.map(mod =>
-                      <option key={mod.id} value={mod.id}>{mod.id} | {mod.login}</option>
                   )
                 }
               </select>

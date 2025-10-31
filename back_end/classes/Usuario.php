@@ -71,4 +71,22 @@ class Usuario extends Crud
             return $this->retorno('error', $e);
         }
     }
+
+    public function getId() :array {
+        try {
+            session_start();
+
+            if ($_SESSION) {
+                return array(
+                    'type' => 'success',
+                    'data' => $_SESSION['ID']
+                );  
+            }
+            else {
+                return $this->retorno('error', 'é encessario estar logado');
+            }
+        } catch (PDOException $e) {
+            return $this->retorno('error', $e);
+        }
+    }
 }

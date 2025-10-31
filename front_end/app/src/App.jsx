@@ -4,7 +4,7 @@ import HomePage from './pages/Home';
 import TecnicaPage from './pages/Tecnica';
 import PagamentoPage from './pages/Pagamentos';
 import Logar from './pages/Login';
-import UsuarioPage from './pages/CadastroUsuario';
+import UsuarioPage from './pages/Usuarios';
 
 function App() {
 

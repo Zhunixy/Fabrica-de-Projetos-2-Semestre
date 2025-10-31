@@ -2,11 +2,11 @@ import bg from "../../../assets/bg.jpg";
 import { Link, useOutletContext, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useState, useEffect } from "react";
-import { validacao } from "../../controller";
+import { getId, validacao, getDados } from "../../controller";
 // import cors from "cors";
 
 export default function Logar() {
-  const { logado, setLogado, message, setMessage } = useOutletContext();
+  const { logado, setLogado, logadoID, setLogadoID, userType, setUserType, message, setMessage } = useOutletContext();
   const navigate = useNavigate();
 
   const submitForm = async (event) => {
@@ -37,10 +37,27 @@ export default function Logar() {
         setLogado(true);
         setMessage(response.data.message);
         navigate("/"); // redireciona para home
+        
+        // checa o id do usuario que esta logado agora
+        const response3 = await getId();
+        if (response3.data.type == "success"){
+          setLogadoID(JSON.parse(response3.data.data));
+
+          // checa o id do usuario que esta logado agora
+          const response4 = await getDados('usuario', JSON.parse(response3.data.data));
+          if (response4.data){
+            setUserType(JSON.parse(response4.data).tipo);
+          }
+        }else{
+          setLogadoID(null);
+          setMessage(response2.data.message);
+        }
       }
     } else {
       setMessage(response.data.message);
     }
+
+    form.reset();
   };
 
   useEffect(() => {

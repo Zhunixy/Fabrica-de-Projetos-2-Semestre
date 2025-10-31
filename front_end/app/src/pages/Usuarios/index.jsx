@@ -1,5 +1,4 @@
 import { useState, useMemo, useEffect } from "react";
-//import "./index.css";
 import Modal from "../../components/Modal";
 import axios from "axios";
 import { get, getDados, post } from "../../controller";
@@ -78,7 +77,7 @@ export default function UsuarioPage() {
     }
   };
 
-  // atualiza a tabela boletos se a pesquisa for alterada
+  // atualiza a tabela usuarios se a pesquisa for alterada
   useEffect(() => {
     var timeout = setTimeout(() => {
       fetchData();
@@ -89,7 +88,7 @@ export default function UsuarioPage() {
     };
   }, [search]);
 
-  // atualiza a tabela boletos de 5 em 5 segundos
+  // atualiza a tabela usuarios de 5 em 5 segundos
   useEffect(() => {
     fetchData();
     const intervalo = setInterval(() => {
@@ -201,9 +200,9 @@ export default function UsuarioPage() {
             />
           </div>
           <div className="input-group">
-            <label>Senha</label>
+            <label className={selected? "hidden" : ""}>Senha</label>
             <input
-              defaultValue={selected?.senha || ""}
+              className={selected? "hidden" : ""}
               type="password"
               name="senha"
               required
