@@ -60,17 +60,22 @@ export default function PagamentoPage() {
     const form = event.target;
     const formData = new FormData(form);
     const status = formData.get("status")? 1 : 0
+    const cliente_id = formData.get("cliente");
+    const servico_id = formData.get("servico");
 
+    if (cliente_id == "null" || servico_id == "null") {
+      setMessage("Selecione um cliente e um serviço válidos.");
+      return;
+    }
     const boleto = {
       codigo: formData.get("codigo"),
       emissao: formData.get("emissao"),
       vencimento: formData.get("vencimento"),
       valor: parseFloat(formData.get("valor")),
       status: status,
-      cliente_id: formData.get("cliente"),
-      servico_id: formData.get("servico"),
+      cliente_id: cliente_id,
+      servico_id: servico_id,
 
-      // temporario
       modificador: logadoID,
     };
 
@@ -84,13 +89,13 @@ export default function PagamentoPage() {
     } else {
       setMessage(response.data.message);
     }
+  
   };
 
   const selecionarLinha = async (divida) => {
     const response = await getDados("boleto", divida.id);
     if (response.data) {
       setSelected(JSON.parse(response.data));
-      console.log(JSON.parse(response.data));
       setOpenModal(true);
     }
   };
@@ -248,19 +253,19 @@ export default function PagamentoPage() {
             <label>Cliente</label>
              <select value={cliente} onChange={(e) => setCliente(e.target.value)} required name="cliente">
                   {
-                      clientes.map(clt =>
+                      clientes.length > 0 ? clientes.map(clt =>
                           <option key={clt.id} value={clt.id}>{clt.id} | {clt.nome} | ({clt.cnpj})</option>
-                      )
+                      ) : <option value="null">Nenhum cliente cadastrado</option>
                   }
               </select>
           </div>
           <div className="input-group">
-            <label>Servico</label>
+            <label>Serviço</label>
               <select value={servico} onChange={(e) => setServico(e.target.value)} required name="servico">
                 {
-                  servicos.map(serv =>
+                  servicos.length > 0 ? servicos.map(serv =>
                       <option key={serv.id} value={serv.id}>{serv.id} | {serv.descricao}</option>
-                  )
+                  ) : <option value="null">Nenhum serviço cadastrado</option>
                 }
               </select>
           </div>
