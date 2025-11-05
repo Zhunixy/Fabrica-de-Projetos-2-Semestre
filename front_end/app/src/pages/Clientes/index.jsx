@@ -227,9 +227,6 @@ export default function ClientePage() {
 
           {/* botoes do modal */}
           <div className="modal-actions">
-            <button type="button" className="btn-secondary">
-              <i className="fa-solid fa-download"></i>
-            </button>
             <button type="submit" className="btn-secondary">
               <i className="fa-solid fa-pen-to-square"></i>
             </button>
