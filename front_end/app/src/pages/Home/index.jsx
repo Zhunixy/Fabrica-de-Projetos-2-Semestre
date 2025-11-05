@@ -25,7 +25,6 @@ export default function HomePage() {
     const response = await get("boleto");
     if (response.data.type == "success") {
       const boletosData = JSON.parse(response.data.data);
-      console.log(boletosData.length)
       setBoletos(boletosData);
 
       const enviados = boletosData.length;
