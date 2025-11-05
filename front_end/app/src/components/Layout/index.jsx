@@ -15,7 +15,6 @@ export function Menu({ logado, setLogado, logadoID, setLogadoID, userType, setUs
     const response1 = await validacao();
     if (response1.data.type == "error"){
       navigate("/Login");
-      setMessage(response1.data.message);
       setLogado(false);
       setNavOpen(false);
     }else{
@@ -35,7 +34,6 @@ export function Menu({ logado, setLogado, logadoID, setLogadoID, userType, setUs
       }
     }else{
       setLogadoID(null);
-      setMessage(response2.data.message);
     }
   };
 
@@ -57,10 +55,15 @@ export function Menu({ logado, setLogado, logadoID, setLogadoID, userType, setUs
     }
   }
 
-  // retorna para o login se não estiver logado
+  // executa a função fetchData ao montar o componente
   useEffect(() => {
     fetchData();
   }, []);
+
+  // executa a função fetchData sempre que o estado logado mudar
+  useEffect(() => {
+    fetchData();
+  }, [logado]);
 
   return (
     <nav>
