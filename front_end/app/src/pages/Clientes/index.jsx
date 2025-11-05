@@ -7,10 +7,10 @@ import md5 from "md5";
 
 const tamPagina = 6;
 
-export default function UsuarioPage() {
-  const {logado, setLogado, message, setMessage} = useOutletContext();
+export default function ClientePage() {
+  const {logado, setLogado, logadoID, setLogadoID, message, setMessage} = useOutletContext();
 
-  const [usuarios, setUsuarios] = useState([]);
+  const [clientes, setClientes] = useState([]);
   const [selected, setSelected] = useState(null);
 
   const [search, setSearch] = useState("");
@@ -19,43 +19,41 @@ export default function UsuarioPage() {
 
   // fetch data
   const fetchData = async () => {
-    const response = await get("usuario");
+    const response = await get("cliente");
     if (response.data.type == "success") {
-      setUsuarios(JSON.parse(response.data.data));
+      setClientes(JSON.parse(response.data.data));
     }
   }
 
   //🔍 Filtragem por busca
-  const usuariosFiltrados = useMemo(() => {
-    return usuarios.filter(
-      (b) => b.nome.includes(search) || b.cpf.toString().includes(search)
+  const clientesFiltrados = useMemo(() => {
+    return clientes.filter(
+      (c) => c.nome.includes(search) || c.cnpj.toString().includes(search) || c.email.toString().includes(search)
     );
-  }, [search, usuarios]);
+  }, [search, clientes]);
 
   // 🔢 Paginação
-  const totalPaginas = Math.ceil(usuariosFiltrados.length / tamPagina);
-  const usuariosAtual = useMemo(() => {
+  const totalPaginas = Math.ceil(clientesFiltrados.length / tamPagina);
+  const clientesAtual = useMemo(() => {
     const start = (paginaAtual - 1) * tamPagina;
-    return usuariosFiltrados.slice(start, start + tamPagina);
-  }, [paginaAtual, usuariosFiltrados]);
+    return clientesFiltrados.slice(start, start + tamPagina);
+  }, [paginaAtual, clientesFiltrados]);
 
   const submitForm = async (event) => {
     event.preventDefault();
 
     const form = event.target;
     const formData = new FormData(form);
-    const senha = md5(formData.get("senha"))
 
-    const usuario = {
-      login: formData.get("login"),
-      senha: senha,
-      tipo: formData.get("tipo"),
-      cpf: formData.get("cpf"),
+    const cliente = {
+      cnpj: formData.get("cnpj"),
       nome: formData.get("nome"),
+      email: formData.get("email"),
       contato: formData.get("contato"),
+      modificador: logadoID,
     };
 
-    const response = await post("usuario", usuario);
+    const response = await post("cliente", cliente);
 
     if (response.data.type == "success") {
       setMessage(response.data.message);
@@ -69,15 +67,15 @@ export default function UsuarioPage() {
     form.reset();
   };
 
-  const selecionarLinha = async (usuario) => {
-    const response = await getDados("usuario", usuario.id);
+  const selecionarLinha = async (cliente) => {
+    const response = await getDados("cliente", cliente.id);
     if (response.data) {
       setSelected(JSON.parse(response.data));
       setOpenModal(true);
     }
   };
 
-  // atualiza a tabela usuarios se a pesquisa for alterada
+  // atualiza a tabela clientes se a pesquisa for alterada
   useEffect(() => {
     var timeout = setTimeout(() => {
       fetchData();
@@ -88,7 +86,7 @@ export default function UsuarioPage() {
     };
   }, [search]);
 
-  // atualiza a tabela usuarios de 5 em 5 segundos
+  // atualiza a tabela clientes de 5 em 5 segundos
   useEffect(() => {
     fetchData();
     const intervalo = setInterval(() => {
@@ -108,7 +106,7 @@ export default function UsuarioPage() {
         <input
           type="text"
           className="search"
-          placeholder="Buscar Nome ou Cpf...."
+          placeholder="Buscar Nome, CNPJ ou Email...."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
         />
@@ -121,24 +119,24 @@ export default function UsuarioPage() {
           <thead>
             <tr>
               <th>Id</th>
-              <th>Login</th>
-              <th>Cpf</th>
+              <th>CNPJ</th>
               <th>Nome</th>
+              <th>Email</th>
             </tr>
           </thead>
           <tbody>
-            {usuariosAtual.length > 0 ? (
-              usuariosAtual.map((usuario) => (
-                <LinhaUsuario
-                  key={usuario.id}
-                  usuario={usuario}
-                  onClick={() => selecionarLinha(usuario)}
-                ></LinhaUsuario>
+            {clientesAtual.length > 0 ? (
+              clientesAtual.map((cliente) => (
+                <LinhaCliente
+                  key={cliente.id}
+                  cliente={cliente}
+                  onClick={() => selecionarLinha(cliente)}
+                ></LinhaCliente>
               ))
             ) : (
               <tr>
                 <td colSpan="5" className="empty">
-                  Nenhum usuário encontrado.
+                  Nenhum cliente encontrado.
                 </td>
               </tr>
             )}
@@ -153,7 +151,7 @@ export default function UsuarioPage() {
             setOpenModal(true);
           }}
         >
-          <i className="fa-solid fa-square-plus"></i> Novo Usuário
+          <i className="fa-solid fa-square-plus"></i> Novo Cliente
         </button>
       </div>
       {/* 📄 Paginação */}
@@ -189,50 +187,31 @@ export default function UsuarioPage() {
       {/* 🪟 Modal do formulario */}
       <Modal open={openModal}>
         <form className="modal-form" onSubmit={submitForm}>
-          <h2>{selected ? "Editar Usuário" : "Novo Usuário"}</h2>
+          <h2>{selected ? "Editar Cliente" : "Novo Cliente"}</h2>
           <div className="input-group">
-            <label>Login</label>
+            <label>CNPJ</label>
             <input
-              defaultValue={selected?.login || ""}
+              defaultValue={selected?.cnpj || ""}
               type="text"
-              name="login"
+              name="cnpj"
               required
             />
           </div>
           <div className="input-group">
-            <label className={selected? "hidden" : ""}>Senha</label>
-            <input
-              className={selected? "hidden" : ""}
-              type="password"
-              name="senha"
-              required
-            />
-          </div>
-          <div className="input-group">
-            <label>Tipo</label>
-            <input
-              defaultValue={selected?.tipo}
-              type="number"
-              name="tipo"
-              onWheel={(e) => e.target.blur()}
-              required
-            />
-          </div>
-          <div className="input-group">
-            <label>Cpf</label>
-            <input
-              defaultValue={selected?.cpf || ""}
-              type="text"
-              name="cpf"
-              required
-            />
-          </div>
-          <div className="input-group">
-            <label>nome</label>
+            <label>Nome</label>
             <input
               defaultValue={selected?.nome || ""}
               type="text"
               name="nome"
+              required
+            />
+          </div>
+          <div className="input-group">
+            <label>Email</label>
+            <input
+              defaultValue={selected?.email || ""}
+              type="text"
+              name="email"
               required
             />
           </div>
@@ -273,13 +252,13 @@ export default function UsuarioPage() {
   );
 }
 
-function LinhaUsuario({ usuario, onClick }) {
+function LinhaCliente({ cliente, onClick }) {
   return (
-    <tr key={usuario.id} onClick={onClick}>
-      <td>{usuario.id}</td>
-      <td>{usuario.login}</td>
-      <td>{usuario.cpf}</td>
-      <td>{usuario.nome}</td>
+    <tr key={cliente.id} onClick={onClick}>
+      <td>{cliente.id}</td>
+      <td>{cliente.cnpj}</td>
+      <td>{cliente.nome}</td>
+      <td>{cliente.email}</td>
     </tr>
   );
 }

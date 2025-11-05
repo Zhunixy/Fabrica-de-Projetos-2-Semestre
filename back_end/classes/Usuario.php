@@ -83,7 +83,7 @@ class Usuario extends Crud
                 );  
             }
             else {
-                return $this->retorno('error', 'é encessario estar logado');
+                return $this->retorno('error', 'É necessario efetuar login');
             }
         } catch (PDOException $e) {
             return $this->retorno('error', $e);

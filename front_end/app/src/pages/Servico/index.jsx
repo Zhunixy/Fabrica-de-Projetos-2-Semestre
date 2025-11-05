@@ -7,10 +7,10 @@ import md5 from "md5";
 
 const tamPagina = 6;
 
-export default function UsuarioPage() {
-  const {logado, setLogado, message, setMessage} = useOutletContext();
+export default function ServicoPage() {
+  const {logado, setLogado, logadoID, setLogadoID, message, setMessage} = useOutletContext();
 
-  const [usuarios, setUsuarios] = useState([]);
+  const [servicos, setServicos] = useState([]);
   const [selected, setSelected] = useState(null);
 
   const [search, setSearch] = useState("");
@@ -19,43 +19,40 @@ export default function UsuarioPage() {
 
   // fetch data
   const fetchData = async () => {
-    const response = await get("usuario");
+    const response = await get("servico");
     if (response.data.type == "success") {
-      setUsuarios(JSON.parse(response.data.data));
+      setServicos(JSON.parse(response.data.data));
     }
   }
 
   //🔍 Filtragem por busca
-  const usuariosFiltrados = useMemo(() => {
-    return usuarios.filter(
-      (b) => b.nome.includes(search) || b.cpf.toString().includes(search)
+  const servicosFiltrados = useMemo(() => {
+    return servicos.filter(
+      (s) => s.nome.includes(search)
     );
-  }, [search, usuarios]);
+  }, [search, servicos]);
 
   // 🔢 Paginação
-  const totalPaginas = Math.ceil(usuariosFiltrados.length / tamPagina);
-  const usuariosAtual = useMemo(() => {
+  const totalPaginas = Math.ceil(servicosFiltrados.length / tamPagina);
+  const servicosAtual = useMemo(() => {
     const start = (paginaAtual - 1) * tamPagina;
-    return usuariosFiltrados.slice(start, start + tamPagina);
-  }, [paginaAtual, usuariosFiltrados]);
+    return servicosFiltrados.slice(start, start + tamPagina);
+  }, [paginaAtual, servicosFiltrados]);
 
   const submitForm = async (event) => {
     event.preventDefault();
 
     const form = event.target;
     const formData = new FormData(form);
-    const senha = md5(formData.get("senha"))
 
-    const usuario = {
-      login: formData.get("login"),
-      senha: senha,
-      tipo: formData.get("tipo"),
-      cpf: formData.get("cpf"),
+    const servico = {
       nome: formData.get("nome"),
-      contato: formData.get("contato"),
+      descricao: formData.get("descricao"),
+      preco: parseFloat(formData.get("preco")),
+      modificador: logadoID,
     };
 
-    const response = await post("usuario", usuario);
+    const response = await post("servico", servico);
 
     if (response.data.type == "success") {
       setMessage(response.data.message);
@@ -69,15 +66,15 @@ export default function UsuarioPage() {
     form.reset();
   };
 
-  const selecionarLinha = async (usuario) => {
-    const response = await getDados("usuario", usuario.id);
+  const selecionarLinha = async (servico) => {
+    const response = await getDados("servico", servico.id);
     if (response.data) {
       setSelected(JSON.parse(response.data));
       setOpenModal(true);
     }
   };
 
-  // atualiza a tabela usuarios se a pesquisa for alterada
+  // atualiza a tabela servicos se a pesquisa for alterada
   useEffect(() => {
     var timeout = setTimeout(() => {
       fetchData();
@@ -88,7 +85,7 @@ export default function UsuarioPage() {
     };
   }, [search]);
 
-  // atualiza a tabela usuarios de 5 em 5 segundos
+  // atualiza a tabela servicos de 5 em 5 segundos
   useEffect(() => {
     fetchData();
     const intervalo = setInterval(() => {
@@ -108,7 +105,7 @@ export default function UsuarioPage() {
         <input
           type="text"
           className="search"
-          placeholder="Buscar Nome ou Cpf...."
+          placeholder="Buscar por Nome...."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
         />
@@ -121,24 +118,23 @@ export default function UsuarioPage() {
           <thead>
             <tr>
               <th>Id</th>
-              <th>Login</th>
-              <th>Cpf</th>
               <th>Nome</th>
+              <th>Preço</th>
             </tr>
           </thead>
           <tbody>
-            {usuariosAtual.length > 0 ? (
-              usuariosAtual.map((usuario) => (
-                <LinhaUsuario
-                  key={usuario.id}
-                  usuario={usuario}
-                  onClick={() => selecionarLinha(usuario)}
-                ></LinhaUsuario>
+            {servicosAtual.length > 0 ? (
+              servicosAtual.map((servico) => (
+                <LinhaServico
+                  key={servico.id}
+                  servico={servico}
+                  onClick={() => selecionarLinha(servico)}
+                ></LinhaServico>
               ))
             ) : (
               <tr>
                 <td colSpan="5" className="empty">
-                  Nenhum usuário encontrado.
+                  Nenhum Servico encontrado.
                 </td>
               </tr>
             )}
@@ -153,7 +149,7 @@ export default function UsuarioPage() {
             setOpenModal(true);
           }}
         >
-          <i className="fa-solid fa-square-plus"></i> Novo Usuário
+          <i className="fa-solid fa-square-plus"></i> Novo Servico
         </button>
       </div>
       {/* 📄 Paginação */}
@@ -189,46 +185,9 @@ export default function UsuarioPage() {
       {/* 🪟 Modal do formulario */}
       <Modal open={openModal}>
         <form className="modal-form" onSubmit={submitForm}>
-          <h2>{selected ? "Editar Usuário" : "Novo Usuário"}</h2>
+          <h2>{selected ? "Editar Servico" : "Novo Servico"}</h2>
           <div className="input-group">
-            <label>Login</label>
-            <input
-              defaultValue={selected?.login || ""}
-              type="text"
-              name="login"
-              required
-            />
-          </div>
-          <div className="input-group">
-            <label className={selected? "hidden" : ""}>Senha</label>
-            <input
-              className={selected? "hidden" : ""}
-              type="password"
-              name="senha"
-              required
-            />
-          </div>
-          <div className="input-group">
-            <label>Tipo</label>
-            <input
-              defaultValue={selected?.tipo}
-              type="number"
-              name="tipo"
-              onWheel={(e) => e.target.blur()}
-              required
-            />
-          </div>
-          <div className="input-group">
-            <label>Cpf</label>
-            <input
-              defaultValue={selected?.cpf || ""}
-              type="text"
-              name="cpf"
-              required
-            />
-          </div>
-          <div className="input-group">
-            <label>nome</label>
+            <label>Nome</label>
             <input
               defaultValue={selected?.nome || ""}
               type="text"
@@ -237,13 +196,12 @@ export default function UsuarioPage() {
             />
           </div>
           <div className="input-group">
-            <label>Contato</label>
-            <input
-              defaultValue={selected?.contato || ""}
-              type="text"
-              name="contato"
-              required
-            />
+            <label>Descrição:</label>
+            <textarea defaultValue={selected?.descricao} required name="descricao"></textarea>
+          </div>
+          <div className="input-group">
+            <label>Preço</label>
+            <input defaultValue={selected?.preco || ""} type="number" name="preco" required step="0.01" min="0" onWheel={(e) => e.target.blur()} />
           </div>
 
           {/* botoes do modal */}
@@ -273,13 +231,16 @@ export default function UsuarioPage() {
   );
 }
 
-function LinhaUsuario({ usuario, onClick }) {
+function LinhaServico({ servico, onClick }) {
   return (
-    <tr key={usuario.id} onClick={onClick}>
-      <td>{usuario.id}</td>
-      <td>{usuario.login}</td>
-      <td>{usuario.cpf}</td>
-      <td>{usuario.nome}</td>
+    <tr key={servico.id} onClick={onClick}>
+      <td>{servico.id}</td>
+      <td>{servico.nome}</td>
+      <td>
+        {Number(servico.preco).toLocaleString("pt-BR", {
+          minimumFractionDigits: 2,
+        })}
+      </td>
     </tr>
   );
 }

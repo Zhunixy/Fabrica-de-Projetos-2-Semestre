@@ -5,6 +5,8 @@ import TecnicaPage from './pages/Tecnica';
 import PagamentoPage from './pages/Pagamentos';
 import Logar from './pages/Login';
 import UsuarioPage from './pages/Usuarios';
+import ClientePage from './pages/Clientes';
+import ServicoPage from './pages/Servico';
 
 function App() {
 
@@ -16,8 +18,10 @@ function App() {
           <Route index element={<HomePage />} />
           <Route path='Tecnica' element={<TecnicaPage />} />
           <Route path="Pagamentos" element={<PagamentoPage />} />
-          <Route path="Login" element ={<Logar/>}/>
+          <Route path="Clientes" element={<ClientePage />} />
           <Route path="Usuarios" element = {<UsuarioPage />}/>
+          <Route path="Servicos" element = {<ServicoPage />}/>
+          <Route path="Login" element ={<Logar/>}/>
         </Route>
       </Routes>
     </BrowserRouter>

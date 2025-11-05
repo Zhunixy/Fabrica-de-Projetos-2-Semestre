@@ -6,6 +6,7 @@ import { getDados, getId, validacao } from "../../controller";
 
 export function Menu({ logado, setLogado, logadoID, setLogadoID, userType, setUserType, message, setMessage }) {
   const [navOpen, setNavOpen] = useState(false);
+  const [userName, setUserName] = useState(null);
   const navigate = useNavigate();
   const pagina = useLocation().pathname;
 
@@ -14,7 +15,7 @@ export function Menu({ logado, setLogado, logadoID, setLogadoID, userType, setUs
     const response1 = await validacao();
     if (response1.data.type == "error"){
       navigate("/Login");
-      setMessage("É necessario efetuar login");
+      setMessage(response1.data.message);
       setLogado(false);
       setNavOpen(false);
     }else{
@@ -30,6 +31,7 @@ export function Menu({ logado, setLogado, logadoID, setLogadoID, userType, setUs
       const response3 = await getDados('usuario', JSON.parse(response2.data.data));
       if (response3.data){
         setUserType(JSON.parse(response3.data).tipo);
+        setUserName(JSON.parse(response3.data).nome);
       }
     }else{
       setLogadoID(null);
@@ -71,7 +73,10 @@ export function Menu({ logado, setLogado, logadoID, setLogadoID, userType, setUs
           src={minhaImagem}
           alt="Logo"
         />
-
+        <li className={`${pagina === "/Login" || pagina === "/Cadastro" ? "hidden" : ""}`}
+          style={{ listStyle: "none" }}>
+          <i className="ex">{userName}</i>
+        </li>
         <li className={`login ${pagina === "/Login" || pagina === "/Cadastro" ? "hidden" : ""}`}
             style={{ listStyle: "none" }}>
           <Link
@@ -85,9 +90,10 @@ export function Menu({ logado, setLogado, logadoID, setLogadoID, userType, setUs
       <ul className={`menuAnima ${navOpen ? "open" : "closed"} ${logado ? "" : "hidden"}`}>
         <li><Link to="/"><i className="icon fa-solid fa-house"></i>Home</Link></li>
         <li><Link to="/Pagamentos"><i className="icon fa-solid fa-bag-shopping"></i>Pagamentos</Link></li>
+        <li><Link to="/Clientes"><i className="icon fa-solid fa-people-group"></i>Clientes</Link></li>
         <li className={userType == 0 ? "" : "hidden"}><Link to="/Usuarios"><i className="icon fa-solid fa-users"></i>Usuários</Link></li>
+        <li className={userType == 0 ? "" : "hidden"}><Link to="/Servicos"><i className="icon fa-solid fa-briefcase"></i>Servicos</Link></li>
         <li><Link to="/Tecnica"><i className="icon fa-solid fa-folder"></i>Sobre</Link></li>
-      
       </ul>
     </nav>
   );

@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { useOutletContext, useNavigate } from "react-router-dom";
 import {
   PieChart,
@@ -9,23 +9,51 @@ import {
   Legend,
 } from "recharts";
 import "./home.css";
+import { get } from "../../controller";
 
 export default function HomePage() {
+  const [boletos, setBoletos] = useState([]);
+  const [grafoBoletos, setGrafoBoletos] = useState({
+    enviados: 0,
+    pagos: 0,
+    pendentes: 0,
+    vencidos: 0,
+  });
 
-  const boletos = {
-    enviados: 100,
-    pagos: 80,
-    pendentes: 15,
-    vencidos: 5,
-  };
+  // fetch data
+  const fetchData = async () => {
+    const response = await get("boleto");
+    if (response.data.type == "success") {
+      const boletosData = JSON.parse(response.data.data);
+      console.log(boletosData.length)
+      setBoletos(boletosData);
 
-  const data = [
-    { name: "Pagos", value: boletos.pagos },
-    { name: "Pendentes", value: boletos.pendentes },
-    { name: "Vencidos", value: boletos.vencidos },
-  ];
+      const enviados = boletosData.length;
+      const pagos = boletosData.filter((b) => b.status == 1).length;
+      const pendentes = boletosData.filter((b) => (b.status == 0 && new Date(b.vencimento) > new Date())).length;
+      const vencidos = boletosData.filter((b) => (b.status == 0 && new Date(b.vencimento) < new Date())).length;
+
+      setGrafoBoletos({ enviados, pagos, pendentes, vencidos });
+    }
+  }
 
   const COLORS = ["#00C49F", "#FFBB28", "#FF4444"];
+
+  // atualiza a tabela boletos de 5 em 5 segundos
+  useEffect(() => {
+    fetchData();
+    const intervalo = setInterval(() => {
+      fetchData();
+    }, 5000);
+  
+    return () => clearInterval(intervalo); 
+  }, []);
+
+  const data = useMemo(() => [
+    { name: "Pagos", value: grafoBoletos.pagos },
+    { name: "Pendentes", value: grafoBoletos.pendentes },
+    { name: "Vencidos", value: grafoBoletos.vencidos },
+  ], [grafoBoletos]);
 
   return (
     <>
@@ -64,19 +92,19 @@ export default function HomePage() {
         <div className="estatisticas">
           <div className="card pago">
             <h3>Pagos</h3>
-            <p>{boletos.pagos}</p>
+            <p>{grafoBoletos.pagos}</p>
           </div>
           <div className="card pendente">
             <h3>Pendentes</h3>
-            <p>{boletos.pendentes}</p>
+            <p>{grafoBoletos.pendentes}</p>
           </div>
           <div className="card vencido">
             <h3>Vencidos</h3>
-            <p>{boletos.vencidos}</p>
+            <p>{grafoBoletos.vencidos}</p>
           </div>
           <div className="card enviados">
             <h3>Total Enviados</h3>
-            <p>{boletos.enviados}</p>
+            <p>{grafoBoletos.enviados}</p>
           </div>
         </div>
 

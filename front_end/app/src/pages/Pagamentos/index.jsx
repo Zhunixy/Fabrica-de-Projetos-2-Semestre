@@ -29,7 +29,6 @@ export default function PagamentoPage() {
     const response = await get("boleto");
     const response2 = await get("cliente");
     const response3 = await get("servico");
-    const response4 = await getId();
     if (response.data.type == "success") {
       setBoletos(JSON.parse(response.data.data));
     }
@@ -228,15 +227,15 @@ export default function PagamentoPage() {
           </div>
           <div className="input-group">
             <label>Emissão</label>
-            <input defaultValue={selected?.emissao || ""} type="text" name="emissao" required/>
+            <input defaultValue={selected? new Date(selected.emissao).toISOString().split("T")[0] : ""} type="date" name="emissao" required/>
           </div>
           <div className="input-group">
             <label>Vencimento</label>
-            <input defaultValue={selected?.vencimento || ""} type="text" name="vencimento" required/>
+            <input defaultValue={selected? new Date(selected.vencimento).toISOString().split("T")[0] : ""} type="date" name="vencimento" required/>
           </div>
           <div className="input-group">
             <label>Valor</label>
-            <input defaultValue={selected?.valor || ""} type="number" name="valor" required step="0.01" min="0" max="9999999" onWheel={(e) => e.target.blur()} />
+            <input defaultValue={selected?.valor || ""} type="number" name="valor" required step="0.01" min="0" onWheel={(e) => e.target.blur()} />
           </div>
           <div className="input-group">
             <label>Status</label>
@@ -296,8 +295,8 @@ function LinhaBoleto({ boleto, onClick }) {
     <tr key={boleto.id} onClick={onClick}>
       <td>{boleto.id}</td>
       <td>{boleto.codigo}</td>
-      <td>{boleto.emissao}</td>
-      <td>{boleto.vencimento}</td>
+      <td>{new Date(boleto.emissao).toISOString().split("T")[0]}</td>
+      <td>{new Date(boleto.vencimento).toISOString().split("T")[0]}</td>
       <td>
         {Number(boleto.valor).toLocaleString("pt-BR", {
           minimumFractionDigits: 2,
