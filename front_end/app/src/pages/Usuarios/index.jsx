@@ -1,4 +1,4 @@
-import { useState, useMemo, useEffect } from "react";
+import { useState, useMemo, useEffect, useReducer } from "react";
 import Modal from "../../components/Modal";
 import axios from "axios";
 import { get, getDados, post } from "../../controller";
@@ -16,6 +16,32 @@ export default function UsuarioPage() {
   const [search, setSearch] = useState("");
   const [openModal, setOpenModal] = useState(false);
   const [paginaAtual, setPaginaAtual] = useState(1);
+
+  const [cpf, setCpf] = useReducer(
+    (oldValue, newValue) => {
+        if (newValue) {
+            const apenasDigitos =
+                newValue.replace(/[^\d]/g, "").substr(-11);
+            const valorMascarado = apenasDigitos
+                .replace(/(\d{3})(\d)/, "$1.$2")
+                .replace(/(\d{3})(\d)/, "$1.$2")
+                .replace(/(\d{3})(\d{2})$/, "$1-$2");
+            return valorMascarado;
+        }
+    }, "");
+
+  const [contato, setContato] = useReducer(
+    (oldValue, newValue) => {
+      if (newValue) {
+        const apenasDigitos = newValue.replace(/[^\d]/g, "").substr(-11);
+        const valorMascarado = apenasDigitos
+          .replace(/^(\d{2})(\d)/, "($1) $2")      // adiciona DDD
+          .replace(/(\d{5})(\d)/, "$1-$2")         // adiciona hífen
+          .slice(0, 15);                           // limita tamanho final
+        return valorMascarado;
+      }
+      return "";
+    }, "");
 
   // fetch data
   const fetchData = async () => {
@@ -97,6 +123,15 @@ export default function UsuarioPage() {
   
     return () => clearInterval(intervalo); 
   }, []);
+
+  useEffect(() => {
+    if (selected) {
+        setCpf(selected.cpf);
+        setContato(selected.contato);
+    } else {
+        setContato("");
+    }
+  }, [selected])
 
   return (
     <div className="main">
@@ -221,10 +256,14 @@ export default function UsuarioPage() {
           <div className="input-group">
             <label>Cpf</label>
             <input
-              defaultValue={selected?.cpf || ""}
-              type="text"
-              name="cpf"
-              required
+              value={cpf}
+              onKeyDown={(e) => {
+                  if (e.key.length == 1 && !e.key.match(/\d/)) {
+                      e.preventDefault();
+                  }
+              }}
+              onChange={(e) => setCpf(e.target.value)}
+              required type="text" name="cpf"
             />
           </div>
           <div className="input-group">
@@ -239,10 +278,16 @@ export default function UsuarioPage() {
           <div className="input-group">
             <label>Contato</label>
             <input
-              defaultValue={selected?.contato || ""}
+              value={contato}
+              onKeyDown={(e) => {
+                if (e.key.length == 1 && !e.key.match(/\d/)) {
+                  e.preventDefault();
+                }
+              }}
+              onChange={(e) => setContato(e.target.value)}
+              required
               type="text"
               name="contato"
-              required
             />
           </div>
 

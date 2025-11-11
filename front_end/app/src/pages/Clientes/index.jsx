@@ -1,4 +1,4 @@
-import { useState, useMemo, useEffect } from "react";
+import { useState, useMemo, useEffect, useReducer } from "react";
 import Modal from "../../components/Modal";
 import axios from "axios";
 import { get, getDados, post } from "../../controller";
@@ -16,6 +16,33 @@ export default function ClientePage() {
   const [search, setSearch] = useState("");
   const [openModal, setOpenModal] = useState(false);
   const [paginaAtual, setPaginaAtual] = useState(1);
+
+  const [cnpj, setCnpj] = useReducer(
+    (oldValue, newValue) => {
+      if (newValue) {
+        const apenasDigitos = newValue.replace(/[^\d]/g, "").substr(-14);
+        const valorMascarado = apenasDigitos
+          .replace(/^(\d{2})(\d)/, "$1.$2")
+          .replace(/^(\d{2})\.(\d{3})(\d)/, "$1.$2.$3")
+          .replace(/^(\d{2})\.(\d{3})\.(\d{3})(\d)/, "$1.$2.$3/$4")
+          .replace(/(\d{4})(\d{2})$/, "$1-$2");
+        return valorMascarado;
+      }
+      return "";
+    }, "");
+
+  const [contato, setContato] = useReducer(
+    (oldValue, newValue) => {
+      if (newValue) {
+        const apenasDigitos = newValue.replace(/[^\d]/g, "").substr(-11);
+        const valorMascarado = apenasDigitos
+          .replace(/^(\d{2})(\d)/, "($1) $2")      // adiciona DDD
+          .replace(/(\d{5})(\d)/, "$1-$2")         // adiciona hífen
+          .slice(0, 15);                           // limita tamanho final
+        return valorMascarado;
+      }
+      return "";
+    }, "");
 
   // fetch data
   const fetchData = async () => {
@@ -95,6 +122,16 @@ export default function ClientePage() {
   
     return () => clearInterval(intervalo); 
   }, []);
+
+  useEffect(() => {
+    if (selected) {
+        setCnpj(selected.cnpj);
+        setContato(selected.contato);
+    } else {
+        setCnpj("");
+        setContato("");
+    }
+  }, [selected])
 
   return (
     <div className="main">
@@ -191,11 +228,18 @@ export default function ClientePage() {
           <div className="input-group">
             <label>CNPJ</label>
             <input
-              defaultValue={selected?.cnpj || ""}
+              value={cnpj}
+              onKeyDown={(e) => {
+                if (e.key.length == 1 && !e.key.match(/\d/)) {
+                  e.preventDefault();
+                }
+              }}
+              onChange={(e) => setCnpj(e.target.value)}
+              required
               type="text"
               name="cnpj"
-              required
             />
+
           </div>
           <div className="input-group">
             <label>Nome</label>
@@ -218,10 +262,16 @@ export default function ClientePage() {
           <div className="input-group">
             <label>Contato</label>
             <input
-              defaultValue={selected?.contato || ""}
+              value={contato}
+              onKeyDown={(e) => {
+                if (e.key.length == 1 && !e.key.match(/\d/)) {
+                  e.preventDefault();
+                }
+              }}
+              onChange={(e) => setContato(e.target.value)}
+              required
               type="text"
               name="contato"
-              required
             />
           </div>
 
