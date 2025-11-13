@@ -1,5 +1,5 @@
 import { useEffect, useState, useMemo } from "react";
-import { useOutletContext, useNavigate } from "react-router-dom";
+import { useOutletContext } from "react-router-dom";
 import {
   PieChart,
   Pie,
@@ -12,98 +12,126 @@ import "./home.css";
 import { get } from "../../controller";
 
 export default function HomePage() {
+  const { userName } = useOutletContext();
   const [boletos, setBoletos] = useState([]);
-  const [grafoBoletos, setGrafoBoletos] = useState({
-    enviados: 0,
-    pagos: 0,
-    pendentes: 0,
-    vencidos: 0,
-  });
+  const [mesesDisponiveis, setMesesDisponiveis] = useState([]);
+  const [searchMes, setSearchMes] = useState(null);
+
+  const nomesMeses = [
+    "Janeiro",
+    "Fevereiro",
+    "Março",
+    "Abril",
+    "Maio",
+    "Junho",
+    "Julho",
+    "Agosto",
+    "Setembro",
+    "Outubro",
+    "Novembro",
+    "Dezembro",
+  ];
 
   // fetch data
   const fetchData = async () => {
     const response = await get("boleto");
-    if (response.data.type == "success") {
+    if (response.data.type === "success") {
       const boletosData = JSON.parse(response.data.data);
       setBoletos(boletosData);
 
-      const enviados = boletosData.length;
-      const pagos = boletosData.filter((b) => b.status == 1).length;
-      const pendentes = boletosData.filter((b) => (b.status == 0 && new Date(b.vencimento) > new Date())).length;
-      const vencidos = boletosData.filter((b) => (b.status == 0 && new Date(b.vencimento) < new Date())).length;
+      const meses = [
+        ...new Set(boletosData.map((b) => new Date(b.emissao).getMonth())),
+      ].sort((a, b) => a - b);
 
-      setGrafoBoletos({ enviados, pagos, pendentes, vencidos });
+      setMesesDisponiveis(meses);
     }
-  }
+  };
+
+  // atualiza os boletos de 5 em 5 segundos
+  useEffect(() => {
+    fetchData();
+    const intervalo = setInterval(fetchData, 5000);
+    return () => clearInterval(intervalo);
+  }, []);
+
+  const boletosFiltrados = useMemo(() => {
+    if (searchMes === null) return boletos;
+    return boletos.filter(
+      (b) => new Date(b.emissao).getMonth() === searchMes
+    );
+  }, [boletos, searchMes]);
+
+  // 🔹 Estatísticas do gráfico
+  const grafoBoleto = useMemo(() => {
+    const enviados = boletosFiltrados.length;
+    const pagos = boletosFiltrados.filter((b) => b.status == "1").length;
+    const pendentes = boletosFiltrados.filter((b) => b.status == "0" && new Date(b.vencimento) > new Date()).length;
+    const vencidos = boletosFiltrados.filter((b) => b.status == "0" && new Date(b.vencimento) < new Date()).length;
+
+    return { enviados, pagos, pendentes, vencidos };
+  }, [boletosFiltrados]);
 
   const COLORS = ["#00C49F", "#FFBB28", "#FF4444"];
 
-  // atualiza a tabela boletos de 5 em 5 segundos
-  useEffect(() => {
-    fetchData();
-    const intervalo = setInterval(() => {
-      fetchData();
-    }, 5000);
-  
-    return () => clearInterval(intervalo); 
-  }, []);
-
-  const data = useMemo(() => [
-    { name: "Pagos", value: grafoBoletos.pagos },
-    { name: "Pendentes", value: grafoBoletos.pendentes },
-    { name: "Vencidos", value: grafoBoletos.vencidos },
-  ], [grafoBoletos]);
+  const data = useMemo(
+    () => [
+      { name: "Pagos", value: grafoBoleto.pagos },
+      { name: "Pendentes", value: grafoBoleto.pendentes },
+      { name: "Vencidos", value: grafoBoleto.vencidos },
+    ],
+    [grafoBoleto]
+  );
 
   return (
     <>
       <div className="main-main">
         <h1>
-          Bem-vindo ao sistema Gerenciador <span>Usuário(a)</span>
+          Bem-vindo ao sistema Gerenciador <span>Usuário(a) {userName}</span>
         </h1>
         <p>
           <i className="fa-solid fa-circle-info"></i> Gerencie, valide e envie
-          seus boletos com facilidade <span>Usuário</span>
+          seus boletos com facilidade <span>Usuário {userName}</span>
         </p>
         <br />
-        <button className="btn">Confira Agora</button>
       </div>
 
       {/* --- Resumo das Estatísticas --- */}
       <div className="estatisticas-container">
         <h2 className="titulo">Resumo de Boletos</h2>
         <p>Resumo dos boletos por Mês</p>
+
         <div className="filtro-mes">
-          <select name="" id="">
-            <option value="">Janeiro</option>
-            <option value="">Fevereiro</option>
-            <option value="">Março</option>
-            <option value="">Maio</option>
-            <option value="">Abril</option>
-            <option value="">Junho</option>
-            <option value="">Julho</option>
-            <option value="">Agosto</option>
-            <option value="">Setembro</option>
-            <option value="">Outubro</option>
-            <option value="">Novembro</option>
-            <option value="">Dezembro</option>
+          <select
+            value={searchMes ?? ""}
+            onChange={(e) =>
+              setSearchMes(e.target.value === "" ? null : parseInt(e.target.value))
+            }
+          >
+            <option value="">Todos os meses</option>
+            {mesesDisponiveis.map((mes) => (
+              <option key={mes} value={mes}>
+                {nomesMeses[mes]}
+              </option>
+            ))}
           </select>
         </div>
+
         <div className="estatisticas">
           <div className="card pago">
             <h3>Pagos</h3>
-            <p>{grafoBoletos.pagos}</p>
+            <p>{grafoBoleto.pagos}</p>
           </div>
           <div className="card pendente">
             <h3>Pendentes</h3>
-            <p>{grafoBoletos.pendentes}</p>
+            <p>{grafoBoleto.pendentes}</p>
           </div>
           <div className="card vencido">
             <h3>Vencidos</h3>
-            <p>{grafoBoletos.vencidos}</p>
+            <p>{grafoBoleto.vencidos}</p>
           </div>
           <div className="card enviados">
             <h3>Total Enviados</h3>
-            <p>{grafoBoletos.enviados}</p>
+            <p>{grafoBoleto.enviados}</p>
           </div>
         </div>
 

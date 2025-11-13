@@ -4,9 +4,8 @@ import axios from "axios";
 import minhaImagem from "../../../assets/logo2.png";
 import { getDados, getId, validacao } from "../../controller";
 
-export function Menu({ logado, setLogado, logadoID, setLogadoID, userType, setUserType, message, setMessage }) {
+export function Menu({ logado, setLogado, logadoID, setLogadoID, userType, setUserType, message, setMessage, userName, setUserName }) {
   const [navOpen, setNavOpen] = useState(false);
-  const [userName, setUserName] = useState(null);
   const navigate = useNavigate();
   const pagina = useLocation().pathname;
 
@@ -115,6 +114,7 @@ export default function Layout() {
   const [ message, setMessage ] = useState('');
   const [ logadoID, setLogadoID ] = useState(null);
   const [ userType, setUserType ] = useState(null);
+  const [ userName, setUserName ] = useState(null);
 
   // redefine mensagem por apenas 5 segundos
   useEffect(() => {
@@ -130,7 +130,7 @@ export default function Layout() {
   return (
     <>
       <header>
-        <Menu logado={logado} setLogado={setLogado} logadoID={logadoID} setLogadoID={setLogadoID} userType={userType} setUserType={setUserType} message={message} setMessage={setMessage} />
+        <Menu logado={logado} setLogado={setLogado} logadoID={logadoID} setLogadoID={setLogadoID} userType={userType} setUserType={setUserType} message={message} setMessage={setMessage} userName={userName} setUserName={setUserName} />
       </header>
       <main>
         <div className={`message ${message? "open" : "closed"}`}>
@@ -138,7 +138,7 @@ export default function Layout() {
             {message}
           </div>
         </div>
-        <Outlet context={{ logado, setLogado, logadoID, setLogadoID, userType, setUserType, message, setMessage}} />
+        <Outlet context={{ logado, setLogado, logadoID, setLogadoID, userType, setUserType, message, setMessage, userName, setUserName}} />
       </main>
     </>
   );
