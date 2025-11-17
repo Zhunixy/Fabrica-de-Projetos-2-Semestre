@@ -120,7 +120,7 @@
 .card.pendente p {
   color: #ffbb28;
 }
-.card.vencido p {
+.card.vencidos p {
   color: #ff4444;
 }
 .card.enviados p {

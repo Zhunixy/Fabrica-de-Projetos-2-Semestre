@@ -123,6 +123,11 @@ tbody tr:hover {
   font-style: italic;
 }
 
+.vencido{
+  background-color: rgba(255, 0, 0, 0.2);
+  border-color: rgba(255, 0, 0, 0.2);
+}
+
 /* ======================= Cards Mobile ======================= */
 .table-cards {
   display: none;

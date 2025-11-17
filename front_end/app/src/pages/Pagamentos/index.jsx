@@ -161,6 +161,7 @@ export default function PagamentoPage() {
               <th>Emissão</th>
               <th>Vencimento</th>
               <th>Valor (R$)</th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
@@ -297,17 +298,22 @@ export default function PagamentoPage() {
 }
 
 function LinhaBoleto({ boleto, onClick }) {
+  const vencido = new Date(boleto.vencimento) < new Date();
+
   return (
-    <tr key={boleto.id} onClick={onClick}>
-      <td>{boleto.id}</td>
-      <td>{boleto.codigo}</td>
-      <td>{new Date(boleto.emissao).toISOString().split("T")[0]}</td>
-      <td>{new Date(boleto.vencimento).toISOString().split("T")[0]}</td>
-      <td>
-        {Number(boleto.valor).toLocaleString("pt-BR", {
-          minimumFractionDigits: 2,
-        })}
-      </td>
-    </tr>
+    <>
+      <tr key={boleto.id} onClick={onClick} className={vencido ? "vencido" : ""}>
+        <td>{boleto.id}</td>
+        <td>{boleto.codigo}</td>
+        <td>{new Date(boleto.emissao).toISOString().split("T")[0]}</td>
+        <td>{new Date(boleto.vencimento).toISOString().split("T")[0]}</td>
+        <td>
+          {Number(boleto.valor).toLocaleString("pt-BR", {
+            minimumFractionDigits: 2,
+          })}
+        </td>
+        <td className={vencido ? "fa-solid fa-triangle-exclamation" : ""} style={{fontSize: "1.5rem"}}></td>
+      </tr>
+    </>
   );
 }

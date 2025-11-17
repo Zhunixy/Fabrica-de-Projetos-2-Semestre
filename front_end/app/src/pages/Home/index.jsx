@@ -15,7 +15,9 @@ export default function HomePage() {
   const { userName } = useOutletContext();
   const [boletos, setBoletos] = useState([]);
   const [mesesDisponiveis, setMesesDisponiveis] = useState([]);
+  const [anosDisponiveis, setAnosDisponiveis] = useState([]);
   const [searchMes, setSearchMes] = useState(null);
+  const [searchAno, setSearchAno] = useState(null);
 
   const nomesMeses = [
     "Janeiro",
@@ -43,7 +45,12 @@ export default function HomePage() {
         ...new Set(boletosData.map((b) => new Date(b.emissao).getMonth())),
       ].sort((a, b) => a - b);
 
+      const anos = [
+        ...new Set(boletosData.map((b) => new Date(b.emissao).getFullYear())),
+      ].sort((a, b) => a - b);
+
       setMesesDisponiveis(meses);
+      setAnosDisponiveis(anos);
     }
   };
 
@@ -55,11 +62,17 @@ export default function HomePage() {
   }, []);
 
   const boletosFiltrados = useMemo(() => {
-    if (searchMes === null) return boletos;
-    return boletos.filter(
-      (b) => new Date(b.emissao).getMonth() === searchMes
-    );
-  }, [boletos, searchMes]);
+    return boletos.filter((b) => {
+      const data = new Date(b.emissao);
+      const mes = data.getMonth();
+      const ano = data.getFullYear();
+
+      if (searchMes && mes !== searchMes) return false;
+      if (searchAno && ano !== searchAno) return false;
+
+      return true;
+    });
+  }, [boletos, searchMes, searchAno]);
 
   // 🔹 Estatísticas do gráfico
   const grafoBoleto = useMemo(() => {
@@ -98,7 +111,7 @@ export default function HomePage() {
       {/* --- Resumo das Estatísticas --- */}
       <div className="estatisticas-container">
         <h2 className="titulo">Resumo de Boletos</h2>
-        <p>Resumo dos boletos por Mês</p>
+        <p>Resumo dos boletos por Mês e Ano</p>
 
         <div className="filtro-mes">
           <select
@@ -116,6 +129,22 @@ export default function HomePage() {
           </select>
         </div>
 
+        <div className="filtro-mes">
+          <select
+            value={searchAno ?? ""}
+            onChange={(e) =>
+              setSearchAno(e.target.value === "" ? null : parseInt(e.target.value))
+            }
+          >
+            <option value="">Todos os anos</option>
+            {anosDisponiveis.map((ano) => (
+              <option key={ano} value={ano}>
+                {ano.toString()}
+              </option>
+            ))}
+          </select>
+        </div>
+
         <div className="estatisticas">
           <div className="card pago">
             <h3>Pagos</h3>
@@ -125,7 +154,7 @@ export default function HomePage() {
             <h3>Pendentes</h3>
             <p>{grafoBoleto.pendentes}</p>
           </div>
-          <div className="card vencido">
+          <div className="card vencidos">
             <h3>Vencidos</h3>
             <p>{grafoBoleto.vencidos}</p>
           </div>
